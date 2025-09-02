@@ -1,0 +1,17 @@
+
+import typer
+
+app = typer.Typer()
+
+@app.command()
+def dbshell():
+    """Opens a database shell."""
+    print("DB shell command not implemented yet.")
+
+@app.command()
+def createsuperuser():
+    """Creates a superuser."""
+    print("Create superuser command not implemented yet.")
+
+if __name__ == "__main__":
+    app()

@@ -1,0 +1,21 @@
+
+from fastapi import FastAPI
+from fastapi_admin.app import app as admin_app
+from app.core.db import init_db
+# Import your api routers here
+
+app = FastAPI(title="{{ project_name }}")
+
+# Mount admin app
+app.mount("/admin", admin_app)
+
+@app.on_event("startup")
+async def startup():
+    await init_db(app)
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+# Include your api routers here
+# app.include_router(api_router, prefix="/api/v1")

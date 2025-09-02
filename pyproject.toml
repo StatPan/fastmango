@@ -1,0 +1,32 @@
+[project]
+name = "fastmango"
+version = "0.1.0"
+description = "AI-first web framework combining FastAPI + FastMCP + Django patterns for unified web, LLM, and MCP development."
+readme = "README.md"
+authors = [
+    { name = "StatPan", email = "statpan@naver.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "alembic>=1.16.5",
+    "asyncpg>=0.30.0",
+    "fastapi>=0.116.1",
+    "fastmcp>=2.12.0",
+    "jinja2>=3.1.6",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic>=2.11.7",
+    "pydantic-ai>=0.8.1",
+    "python-jose[cryptography]>=3.5.0",
+    "python-multipart>=0.0.20",
+    "sqlmodel>=0.0.24",
+    "typer[all]>=0.17.3",
+    "uvicorn[standard]>=0.35.0",
+]
+
+[project.scripts]
+fastmango = "fastmango:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
