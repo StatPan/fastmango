@@ -22,8 +22,6 @@ dependencies = [
     "sqlmodel>=0.0.24",
     "typer[all]>=0.17.3",
     "uvicorn[standard]>=0.35.0",
-    "mkdocs>=1.6.0",
-    "mkdocs-material>=9.5.3",
 ]
 
 [project.optional-dependencies]
@@ -31,6 +29,8 @@ dev = [
     "black>=24.8.0",
     "ruff>=0.7.2",
     "mypy>=1.11.1",
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.3",
 ]
 
 [project.scripts]
@@ -39,3 +39,69 @@ fastmango = "fastmango:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fastmango"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+pretty = true
+show_error_codes = true
+exclude = ["src/fjango/template/"]
+
+[[tool.mypy.overrides]]
+module = "fastmcp.*"
+ignore_missing_imports = true
+check_untyped_defs = false
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_untyped_decorators = false
+no_implicit_optional = false
+warn_return_any = false
+warn_unused_configs = false
+warn_redundant_casts = false
+warn_unused_ignores = false
+pretty = false
+show_error_codes = false
+
+[tool.aerich]
+tortoise_orm = "app.core.db.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
+
+[tool.black]
+line-length = 120
+target-version = ['py312']
+include = '''\.pyi?$'''
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

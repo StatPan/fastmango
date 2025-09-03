@@ -6,7 +6,6 @@ nav:
   - Home: README.md
   - "User Guide":
     - "Introduction": "PROJECT_VISION.md"
-    - "Installation": "README.md"
     - "Architecture": "ARCHITECTURE.md"
     - "CLI Design": "CLI_DESIGN.md"
     - "Deployment Strategy": "DEPLOYMENT_STRATEGY.md"
