@@ -1,8 +1,8 @@
-# fjango CLI Design
+# fastmango CLI Design
 
 ## 🎯 Design Philosophy
 
-The fjango CLI combines **Node.js's modern developer experience** with **Django's productivity** to provide an intuitive and efficient command-line interface.
+The fastmango CLI combines **Node.js's modern developer experience** with **Django's productivity** to provide an intuitive and efficient command-line interface.
 
 ### Core Principles
 - **Simplicity**: Short and memorable commands
@@ -14,34 +14,34 @@ The fjango CLI combines **Node.js's modern developer experience** with **Django'
 
 ### Basic Command Pattern
 ```bash
-fjango <command> [subcommand] [options] [arguments]
+fastmango <command> [subcommand] [options] [arguments]
 ```
 
 ### Complete Command Overview
 ```bash
-fjango --help                 # Help information
-fjango --version              # Version information
-fjango init [project-name]    # Initialize project
-fjango dev                    # Run development server
-fjango build                  # Production build
-fjango start                  # Run production server
-fjango migrate               # Database migrations
-fjango shell                 # Interactive Python shell
-fjango admin                 # Launch admin interface
-fjango user <subcommand>     # User management
-fjango db <subcommand>       # Database management
-fjango ai <subcommand>       # AI tools management
-fjango deploy <platform>     # Deploy to platform
+fastmango --help                 # Help information
+fastmango --version              # Version information
+fastmango init [project-name]    # Initialize project
+fastmango dev                    # Run development server
+fastmango build                  # Production build
+fastmango start                  # Run production server
+fastmango migrate               # Database migrations
+fastmango shell                 # Interactive Python shell
+fastmango admin                 # Launch admin interface
+fastmango user <subcommand>     # User management
+fastmango db <subcommand>       # Database management
+fastmango ai <subcommand>       # AI tools management
+fastmango deploy <platform>     # Deploy to platform
 ```
 
 ## 📋 Detailed Command Design
 
 ### 1. Project Initialization
 ```bash
-fjango init [project-name]
-fjango init myapp --template=basic
-fjango init myapp --template=fullstack
-fjango init myapp --db=postgresql --ai=enabled
+fastmango init [project-name]
+fastmango init myapp --template=basic
+fastmango init myapp --template=fullstack
+fastmango init myapp --db=postgresql --ai=enabled
 ```
 
 **Features**:
@@ -52,7 +52,7 @@ fjango init myapp --db=postgresql --ai=enabled
 
 **Example Output**:
 ```
-🚀 Creating new fjango project...
+🚀 Creating new fastmango project...
 
 ✨ Project Name: myapp
 📦 Template: fullstack
@@ -71,15 +71,15 @@ fjango init myapp --db=postgresql --ai=enabled
 
 Next steps:
   cd myapp
-  fjango dev
+  fastmango dev
 ```
 
 ### 2. Development Server (Node.js dev script style)
 ```bash
-fjango dev
-fjango dev --port=8001
-fjango dev --reload=off
-fjango dev --admin=disabled
+fastmango dev
+fastmango dev --port=8001
+fastmango dev --reload=off
+fastmango dev --admin=disabled
 ```
 
 **Features**:
@@ -90,7 +90,7 @@ fjango dev --admin=disabled
 
 **Example Output**:
 ```
-🔥 Starting fjango dev server...
+🔥 Starting fastmango dev server...
 
 🌐 API Server: http://localhost:8000
 ⚙️  Admin Panel: http://localhost:8000/admin
@@ -106,11 +106,11 @@ fjango dev --admin=disabled
 
 ### 3. Database Management
 ```bash
-fjango migrate                    # Run migrations
-fjango migrate --create [name]    # Create migration
-fjango migrate --rollback [rev]   # Rollback migration
-fjango migrate --status           # Migration status
-fjango dbshell                   # Database shell
+fastmango migrate                    # Run migrations
+fastmango migrate --create [name]    # Create migration
+fastmango migrate --rollback [rev]   # Rollback migration
+fastmango migrate --status           # Migration status
+fastmango dbshell                   # Database shell
 ```
 
 **Example Output**:
@@ -127,26 +127,26 @@ fjango dbshell                   # Database shell
 
 ### 4. User Management
 ```bash
-fjango user create              # Create user
-fjango user create --admin      # Create admin user
-fjango user list               # List users
-fjango user delete <id>        # Delete user
+fastmango user create              # Create user
+fastmango user create --admin      # Create admin user
+fastmango user list               # List users
+fastmango user delete <id>        # Delete user
 ```
 
 ### 5. AI Tools Management
 ```bash
-fjango ai list                 # List AI tools
-fjango ai register <tool>      # Register AI tool
-fjango ai test <tool>          # Test AI tool
-fjango ai usage               # AI usage statistics
+fastmango ai list                 # List AI tools
+fastmango ai register <tool>      # Register AI tool
+fastmango ai test <tool>          # Test AI tool
+fastmango ai usage               # AI usage statistics
 ```
 
 ### 6. Deployment Management
 ```bash
-fjango build                   # Production build
-fjango deploy railway         # Deploy to Railway
-fjango deploy fly             # Deploy to Fly.io
-fjango deploy --env=staging    # Deploy to staging environment
+fastmango build                   # Production build
+fastmango deploy railway         # Deploy to Railway
+fastmango deploy fly             # Deploy to Fly.io
+fastmango deploy --env=staging    # Deploy to staging environment
 ```
 
 ## 🎨 User Experience (UX) Design
@@ -180,29 +180,29 @@ fjango deploy --env=staging    # Deploy to staging environment
 💡 Suggestions:
   • Check if PostgreSQL is running
   • Verify connection string in .env
-  • Run: fjango db status
+  • Run: fastmango db status
 
-📚 Docs: https://fjango.dev/docs/database
+📚 Docs: https://fastmango.dev/docs/database
 ```
 
 ## 🔧 Technical Implementation
 
 ### Typer-based Structure
 ```python
-# fjango/commands/
+# fastmango/commands/
 ├── __init__.py
-├── init.py          # fjango init
-├── dev.py           # fjango dev
-├── migrate.py       # fjango migrate
-├── user.py          # fjango user
-├── db.py            # fjango db
-├── ai.py            # fjango ai
-└── deploy.py        # fjango deploy
+├── init.py          # fastmango init
+├── dev.py           # fastmango dev
+├── migrate.py       # fastmango migrate
+├── user.py          # fastmango user
+├── db.py            # fastmango db
+├── ai.py            # fastmango ai
+└── deploy.py        # fastmango deploy
 ```
 
 ### Configuration Management
 ```python
-# fjango.toml or .fjango/config.yaml
+# fastmango.toml or .fastmango/config.yaml
 [project]
 name = "myapp"
 version = "0.1.0"
@@ -226,16 +226,16 @@ models = ["gpt-4o-mini"]
 ### Plugin System
 ```python
 # Third-party plugin support
-fjango install fjango-plugin-auth
-fjango install fjango-plugin-monitoring
+fastmango install fastmango-plugin-auth
+fastmango install fastmango-plugin-monitoring
 ```
 
 ## 📊 Performance Goals
 
 ### Command Response Time
-- `fjango dev`: Server start in < 2 seconds
-- `fjango migrate`: Migration execution in < 1 second
-- `fjango build`: Build completion in < 10 seconds
+- `fastmango dev`: Server start in < 2 seconds
+- `fastmango migrate`: Migration execution in < 1 second
+- `fastmango build`: Build completion in < 10 seconds
 
 ### User Experience Metrics
 - Learning curve: Django developers proficient within 1 hour
@@ -244,20 +244,20 @@ fjango install fjango-plugin-monitoring
 
 ## 🔄 Django manage.py Command Comparison
 
-| Django | fjango | Improvement |
+| Django | fastmango | Improvement |
 |--------|--------|-------------|
-| `python manage.py runserver` | `fjango dev` | Shorter and more intuitive |
-| `python manage.py migrate` | `fjango migrate` | No Python path required |
-| `python manage.py createsuperuser` | `fjango user create --admin` | Clearer intent |
-| `python manage.py shell` | `fjango shell` | Concise |
-| `python manage.py collectstatic` | `fjango build` | Modern build concept |
+| `python manage.py runserver` | `fastmango dev` | Shorter and more intuitive |
+| `python manage.py migrate` | `fastmango migrate` | No Python path required |
+| `python manage.py createsuperuser` | `fastmango user create --admin` | Clearer intent |
+| `python manage.py shell` | `fastmango shell` | Concise |
+| `python manage.py collectstatic` | `fastmango build` | Modern build concept |
 
 ## 🚀 Future Extensions
 
 ### Auto-completion Support
 ```bash
 # Install Bash/Zsh auto-completion
-fjango --install-completion
+fastmango --install-completion
 ```
 
 ### IDE Integration
@@ -267,9 +267,9 @@ fjango --install-completion
 
 ### Workflow Integration
 ```bash
-fjango workflow init          # GitHub Actions template
-fjango workflow deploy        # Deployment pipeline
-fjango workflow test          # Test pipeline
+fastmango workflow init          # GitHub Actions template
+fastmango workflow deploy        # Deployment pipeline
+fastmango workflow test          # Test pipeline
 ```
 
 ## 🎭 Command Aliases and Shortcuts
@@ -277,39 +277,39 @@ fjango workflow test          # Test pipeline
 ### Common Aliases
 ```bash
 # Short forms for frequently used commands
-fjango d        # alias for 'fjango dev'
-fjango m        # alias for 'fjango migrate'
-fjango s        # alias for 'fjango shell'
+fastmango d        # alias for 'fastmango dev'
+fastmango m        # alias for 'fastmango migrate'
+fastmango s        # alias for 'fastmango shell'
 ```
 
 ### Context-aware Commands
 ```bash
 # Smart detection of project state
-fjango          # Shows project status if in fjango project directory
-fjango status   # Comprehensive project health check
+fastmango          # Shows project status if in fastmango project directory
+fastmango status   # Comprehensive project health check
 ```
 
 ## 🔍 Advanced Features
 
 ### Configuration Profiles
 ```bash
-fjango dev --profile=production    # Use production-like settings
-fjango deploy --profile=staging    # Deploy with staging configuration
+fastmango dev --profile=production    # Use production-like settings
+fastmango deploy --profile=staging    # Deploy with staging configuration
 ```
 
 ### Batch Operations
 ```bash
-fjango migrate --all-apps          # Migrate all registered apps
-fjango test --watch               # Run tests in watch mode
+fastmango migrate --all-apps          # Migrate all registered apps
+fastmango test --watch               # Run tests in watch mode
 ```
 
 ### Debug and Inspection Tools
 ```bash
-fjango inspect routes             # Show all registered routes
-fjango inspect models             # Show all models and relationships
-fjango debug database            # Database connection diagnostics
+fastmango inspect routes             # Show all registered routes
+fastmango inspect models             # Show all models and relationships
+fastmango debug database            # Database connection diagnostics
 ```
 
 ---
 
-*The fjango CLI is designed to feel familiar to Django developers while embracing modern development practices.*
+*The fastmango CLI is designed to feel familiar to Django developers while embracing modern development practices.*

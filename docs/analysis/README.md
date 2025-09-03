@@ -1,6 +1,6 @@
 # MCP Framework Analysis
 
-Analysis of existing MCP frameworks to inform fjango's MCP integration strategy.
+Analysis of existing MCP frameworks to inform fastmango's MCP integration strategy.
 
 ## Frameworks Under Analysis
 
@@ -19,8 +19,8 @@ Analysis of existing MCP frameworks to inform fjango's MCP integration strategy.
 1. **Architecture Comparison**: How do they structure MCP server development?
 2. **Feature Completeness**: What features does each provide?
 3. **Developer Experience**: Which approach offers better DX?
-4. **Integration Potential**: Which would work better with fjango's Django-like patterns?
-5. **Long-term Strategy**: Which has better alignment with fjango's vision?
+4. **Integration Potential**: Which would work better with fastmango's Django-like patterns?
+5. **Long-term Strategy**: Which has better alignment with fastmango's vision?
 
 ## Decision Framework
 
@@ -35,4 +35,4 @@ Analysis of existing MCP frameworks to inform fjango's MCP integration strategy.
 
 - **Phase 1**: Clone and analyze both codebases
 - **Phase 2**: Create comparison document
-- **Phase 3**: Recommend integration strategy for fjango
+- **Phase 3**: Recommend integration strategy for fastmango

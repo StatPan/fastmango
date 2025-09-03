@@ -103,11 +103,11 @@ class MangoApp:
 ```
 
 ## Acceptance Criteria
-- [ ] MangoApp class instantiates successfully
-- [ ] FastAPI integration working
+- [x] MangoApp class instantiates successfully
+- [x] FastAPI integration working
 - [ ] Basic LLM integration functional
 - [ ] Basic MCP integration functional
-- [ ] Configuration system working
+- [x] Configuration system working
 - [ ] Unit tests passing
 
 ---
@@ -141,9 +141,9 @@ Create Typer-based CLI tools for project management and development workflow.
 3. **public-data** - Public API wrapper template
 
 ## Acceptance Criteria
-- [ ] `fastmango new` creates working project
-- [ ] `fastmango run` starts development server
-- [ ] Templates generate valid code
+- [x] `fastmango new` creates working project
+- [x] `fastmango run` starts development server
+- [x] Templates generate valid code
 - [ ] Help system suggests fmgo alias
 - [ ] Error handling for invalid inputs
 
@@ -185,10 +185,10 @@ users = await User.objects.filter(email__contains="@example.com")
 - MySQL (future)
 
 ## Acceptance Criteria
-- [ ] SQLModel models work with Manager pattern
-- [ ] Async queries functional
+- [x] SQLModel models work with Manager pattern
+- [x] Async queries functional
 - [ ] Migrations system integrated
-- [ ] Connection pooling working
+- [x] Connection pooling working
 - [ ] Multiple database support
 
 ---

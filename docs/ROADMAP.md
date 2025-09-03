@@ -1,4 +1,4 @@
-# fjango Development Roadmap
+# fastmango Development Roadmap
 
 ## 📅 Development Timeline
 
@@ -8,9 +8,9 @@
 - [x] Define basic project structure
 - [x] Determine core technology stack (FastAPI + SQLModel + Pydantic)
 - [ ] Implement modern CLI command system
-  - `fjango init` - Project initialization
-  - `fjango dev` - Development server
-  - `fjango migrate` - Database migrations
+  - `fastmango init` - Project initialization
+  - `fastmango dev` - Development server
+  - `fastmango migrate` - Database migrations
 - [ ] Develop project template engine
 
 #### 1.2 Django-like ORM Layer
@@ -39,8 +39,8 @@
 - [ ] Standardize error handling
 
 #### 2.3 Developer Tools
-- [ ] `fjango shell` - Interactive Python shell
-- [ ] `fjango dbshell` - Database shell
+- [ ] `fastmango shell` - Interactive Python shell
+- [ ] `fastmango dbshell` - Database shell
 - [ ] Integrate debugging tools
 
 ### Phase 3: Productivity Boosters
@@ -77,8 +77,8 @@
 ### Phase 5: Deployment & Hosting
 
 #### 5.1 Deployment Automation
-- [ ] `fjango build` - Production build
-- [ ] `fjango deploy` - Cloud deployment
+- [ ] `fastmango build` - Production build
+- [ ] `fastmango deploy` - Cloud deployment
 - [ ] Docker container support
 - [ ] Environment-specific configuration management
 
@@ -88,7 +88,7 @@
 - [ ] Render.com integration
 - [ ] AWS/GCP/Azure support
 
-#### 5.3 Managed Hosting (fjango Cloud)
+#### 5.3 Managed Hosting (fastmango Cloud)
 - [ ] Develop proprietary PaaS platform
 - [ ] Auto-provision PostgreSQL
 - [ ] Automatic SSL certificate management
@@ -163,7 +163,7 @@
 - Cloud platform integrations
 
 ### v2.0 (Enterprise)
-- fjango Cloud platform
+- fastmango Cloud platform
 - Advanced scaling features
 - Enterprise security
 - Multi-tenancy support

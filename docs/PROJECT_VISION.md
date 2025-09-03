@@ -51,7 +51,7 @@ Provide Django's familiar patterns with FastAPI's true async performance:
 ## 6. Success Metrics
 
 ### Developer Experience
-- **Time to first API**: < 5 minutes from `fjango init` to running server
+- **Time to first API**: < 5 minutes from `fastmango init` to running server
 - **Learning curve**: Django developers productive within 1 hour
 - **Boilerplate reduction**: 70% less setup code vs pure FastAPI
 
@@ -67,7 +67,7 @@ Provide Django's familiar patterns with FastAPI's true async performance:
 
 ## 7. Competitive Positioning
 
-| Framework | Strengths | Weaknesses | fjango Advantage |
+| Framework | Strengths | Weaknesses | fastmango Advantage |
 |-----------|-----------|------------|------------------|
 | **Django** | Productivity, batteries-included | Sync-only, heavy for APIs | Async performance + familiar patterns |
 | **FastAPI** | Performance, modern Python | Boilerplate for real apps | Django productivity + FastAPI speed |
@@ -90,7 +90,7 @@ Provide Django's familiar patterns with FastAPI's true async performance:
 
 ### Development Model
 * **Open core**: Core framework completely open source
-* **Commercial services**: Hosting platform (fjango Cloud) for sustainability
+* **Commercial services**: Hosting platform (fastmango Cloud) for sustainability
 * **Community-driven**: Accept contributions, maintain clear architecture
 
 ### Monetization Philosophy

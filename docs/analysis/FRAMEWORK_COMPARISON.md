@@ -1,6 +1,6 @@
 # MCP Frameworks: Comparative Analysis
 
-This document provides a direct comparison between FastMCP 2.0 and the Anthropic MCP Python SDK to inform the integration strategy for the fjango framework.
+This document provides a direct comparison between FastMCP 2.0 and the Anthropic MCP Python SDK to inform the integration strategy for the fastmango framework.
 
 ## At a Glance
 
@@ -43,10 +43,10 @@ This document provides a direct comparison between FastMCP 2.0 and the Anthropic
 -   **Configuration**: FastMCP 2.0's promotion of a Django-like `settings.py` file provides a more structured and familiar configuration experience for developers coming from a Django background.
 -   **Tooling**: Both have useful CLI tools, but the `fastmcp` tool seems more geared towards project management, while the `mcp` tool is more focused on running and installing simple servers.
 
-## Conclusion for fjango Integration
+## Conclusion for fastmango Integration
 
-**FastMCP 2.0 is the clear choice for integration with fjango.**
+**FastMCP 2.0 is the clear choice for integration with fastmango.**
 
-Its design philosophy, architectural patterns, and feature set are all strongly aligned with the goals of the fjango project. The Django-like project structure, server composition (`mount`), and focus on developer productivity make it a natural fit. By adopting FastMCP 2.0, fjango can provide a seamless and familiar experience for Django developers who want to build modern, async applications with MCP capabilities.
+Its design philosophy, architectural patterns, and feature set are all strongly aligned with the goals of the fastmango project. The Django-like project structure, server composition (`mount`), and focus on developer productivity make it a natural fit. By adopting FastMCP 2.0, fastmango can provide a seamless and familiar experience for Django developers who want to build modern, async applications with MCP capabilities.
 
-The Anthropic MCP SDK, while a solid and important piece of the MCP ecosystem, is too low-level and unopinionated for the needs of fjango. It would require fjango to reinvent many of the features that FastMCP 2.0 already provides.
+The Anthropic MCP SDK, while a solid and important piece of the MCP ecosystem, is too low-level and unopinionated for the needs of fastmango. It would require fastmango to reinvent many of the features that FastMCP 2.0 already provides.

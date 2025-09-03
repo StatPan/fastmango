@@ -1,0 +1,22 @@
+site_name: fastmango
+theme:
+  name: material
+docs_dir: docs
+nav:
+  - Home: README.md
+  - "User Guide":
+    - "Introduction": "PROJECT_VISION.md"
+    - "Architecture": "ARCHITECTURE.md"
+    - "CLI Design": "CLI_DESIGN.md"
+    - "Deployment Strategy": "DEPLOYMENT_STRATEGY.md"
+    - "Roadmap": "ROADMAP.md"
+    - "GitHub Issues": "GITHUB_ISSUES.md"
+    - "MCP Integration": "MCP_INTEGRATION.md"
+  - "Analysis":
+    - "Home": "analysis/README.md"
+    - "FastMCP 2 Analysis": "analysis/FASTMCP_2_ANALYSIS.md"
+    - "FastMCP Pain Points Analysis": "analysis/FASTMCP_PAIN_POINTS_ANALYSIS.md"
+    - "Fastmango MCP Strategy": "analysis/FASTMANGO_MCP_STRATEGY.md"
+    - "Framework Comparison": "analysis/FRAMEWORK_COMPARISON.md"
+    - "Gemini Analysis Instructions": "analysis/GEMINI_ANALYSIS_INSTRUCTIONS.md"
+    - "Gemini Followup Questions": "analysis/GEMINI_FOLLOWUP_QUESTIONS.md"

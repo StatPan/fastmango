@@ -1,8 +1,8 @@
-# fjango Architecture Design
+# fastmango Architecture Design
 
 ## 🏗️ Core Design Philosophy
 
-fjango reimplements **Django's proven structure and conventions** on top of **FastAPI's modern performance**, providing a framework optimized for API-centric development.
+fastmango reimplements **Django's proven structure and conventions** on top of **FastAPI's modern performance**, providing a framework optimized for API-centric development.
 
 ### Design Principles
 - **Django Convention Inheritance**: Familiar structure for existing Django developers
@@ -12,7 +12,7 @@ fjango reimplements **Django's proven structure and conventions** on top of **Fa
 
 ## 📁 Project Structure
 
-### Django vs fjango Structure Comparison
+### Django vs fastmango Structure Comparison
 
 ```python
 # Django Traditional Structure
@@ -33,14 +33,14 @@ myproject/
 ├── static/           # Static files
 └── manage.py         # CLI tool
 
-# fjango API Structure  
+# fastmango API Structure  
 myproject/
 ├── myproject/          # Project settings
 │   ├── settings.py     # App configuration (Django style)
 │   ├── routes.py       # Main routing
 │   ├── main.py         # FastAPI app instance
 │   └── asgi.py         # ASGI server configuration
-├── myapp/             # fjango app
+├── myapp/             # fastmango app
 │   ├── models.py       # SQLModel models
 │   ├── api.py          # API endpoints (views.py → api.py)
 │   ├── schemas.py      # Pydantic schemas (forms.py → schemas.py)
@@ -49,17 +49,17 @@ myproject/
 │   └── apps.py         # App configuration
 ├── migrations/        # Alembic migrations
 ├── tests/            # Test files
-└── fjango.py         # CLI tool (manage.py → fjango.py)
+└── fastmango.py         # CLI tool (manage.py → fastmango.py)
 ```
 
 ### File Naming Rationale
 
-| Django | fjango | Reason for Change |
+| Django | fastmango | Reason for Change |
 |--------|--------|-------------------|
 | `views.py` | `api.py` | Clearly expresses that these are API endpoints |
 | `forms.py` | `schemas.py` | Pydantic schema-based data validation |
 | `urls.py` | `routes.py` | Consistency with FastAPI routers |
-| `manage.py` | `fjango.py` | Framework branding and differentiation |
+| `manage.py` | `fastmango.py` | Framework branding and differentiation |
 
 ## 🏛️ Core Component Architecture
 
@@ -67,7 +67,7 @@ myproject/
 
 ```python
 # myapp/models.py
-from fjango import Model, Manager
+from fastmango import Model, Manager
 from sqlmodel import Field
 from datetime import datetime
 from typing import Optional
@@ -100,8 +100,8 @@ class User(Model, table=True):
 
 ```python
 # myapp/api.py
-from fjango import APIRouter, Depends
-from fjango.auth import get_current_user
+from fastmango import APIRouter, Depends
+from fastmango.auth import get_current_user
 from .models import User
 from .schemas import UserCreate, UserResponse, UserUpdate
 from typing import List
@@ -204,7 +204,7 @@ urlpatterns = [
 
 ```python
 # myproject/routes.py
-from fjango import FastAPI
+from fastmango import FastAPI
 from myapp.routes import urlpatterns as myapp_urls
 
 app = FastAPI(title="My Project API", version="1.0.0")
@@ -299,7 +299,7 @@ class Manager:
 
 ```python
 # myapp/admin.py
-from fjango.admin import admin, ModelAdmin
+from fastmango.admin import admin, ModelAdmin
 
 @admin.register(User)
 class UserAdmin(ModelAdmin):
@@ -315,7 +315,7 @@ class UserAdmin(ModelAdmin):
 
 ```python
 # myapp/apps.py
-from fjango.apps import AppConfig
+from fastmango.apps import AppConfig
 
 class MyAppConfig(AppConfig):
     name = 'myapp'
@@ -360,14 +360,14 @@ DATABASE_URL = "postgresql+asyncpg://user:pass@localhost/db"
 ### Caching Support
 ```python
 # Redis caching integration
-from fjango.cache import cache
+from fastmango.cache import cache
 
 @cache.cached(timeout=300)  # 5-minute cache
 async def get_popular_posts():
     return await Post.objects.filter(views__gte=1000).all()
 ```
 
-## 🔄 Migration from Django to fjango
+## 🔄 Migration from Django to fastmango
 
 ### Step-by-Step Migration Guide
 
@@ -375,11 +375,11 @@ async def get_popular_posts():
 2. **View Conversion**: Django View → FastAPI Router
 3. **Form Conversion**: Django Form → Pydantic Schema
 4. **URL Conversion**: Django urls.py → FastAPI Router
-5. **Settings Conversion**: Django settings → fjango settings
+5. **Settings Conversion**: Django settings → fastmango settings
 
 ### Automatic Conversion Tool (Future Development)
 ```bash
-fjango migrate-from-django /path/to/django/project
+fastmango migrate-from-django /path/to/django/project
 ```
 
 Through this architecture, Django developers can enjoy FastAPI's modern performance using familiar patterns.
