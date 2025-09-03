@@ -1,8 +1,0 @@
-
-from pydantic_settings import BaseSettings
-
-class Settings(BaseSettings):
-    PROJECT_NAME: str = "{{ project_name }}"
-    DATABASE_URL: str = "sqlite://./test.db"
-
-settings = Settings()

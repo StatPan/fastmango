@@ -1,7 +1,7 @@
 # FastMCP 2.0 Comprehensive Analysis
 
 ## Executive Summary
-FastMCP 2.0 is a powerful and developer-friendly Python framework for building Model Context Protocol (MCP) servers. It successfully combines a simple, intuitive API, inspired by FastAPI, with architectural patterns that will be familiar to Django developers. Its key strengths are its decorator-based tool definition, its robust Pydantic-based type safety, and its modular, Django-like project structure. These features make it an excellent candidate for integration with the fjango framework, as it aligns well with fjango's philosophy of combining Django's productivity with modern async performance.
+FastMCP 2.0 is a powerful and developer-friendly Python framework for building Model Context Protocol (MCP) servers. It successfully combines a simple, intuitive API, inspired by FastAPI, with architectural patterns that will be familiar to Django developers. Its key strengths are its decorator-based tool definition, its robust Pydantic-based type safety, and its modular, Django-like project structure. These features make it an excellent candidate for integration with the fastmango framework, as it aligns well with fastmango's philosophy of combining Django's productivity with modern async performance.
 
 ## Architecture Analysis
 ### A. Project Structure
@@ -63,9 +63,9 @@ The framework provides comprehensive support for the core MCP features:
 - **Configuration**: The robust settings management allows for easy configuration for different environments (dev, prod, etc.).
 
 ## Django-like Integration Potential
-FastMCP 2.0 exhibits a high potential for integration with a Django-like framework such as fjango.
+FastMCP 2.0 exhibits a high potential for integration with a Django-like framework such as fastmango.
 
 - **Settings**: The use of a `settings.py` file with a Pydantic-based `Settings` class is a direct parallel to Django's settings system.
 - **App-based Architecture**: The server composition and mounting features naturally support a modular, app-based architecture, which is a cornerstone of Django development. The `smart_home` example is a clear demonstration of this pattern.
-- **CLI Tooling**: The presence of a `fastmcp` CLI tool suggests that it could be extended or wrapped to provide a `fjango.py` or `manage.py`-like experience for developers.
+- **CLI Tooling**: The presence of a `fastmcp` CLI tool suggests that it could be extended or wrapped to provide a `fastmango.py` or `manage.py`-like experience for developers.
 - **Decorator-based API**: While not directly from Django, the decorator-based approach for defining tools is similar to the decorators used in frameworks like Django REST Framework and Django-Ninja, making it a familiar pattern for many Django developers.

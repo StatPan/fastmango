@@ -1,7 +1,7 @@
 # Gemini Analysis Instructions for MCP Frameworks
 
 ## Overview
-This document provides detailed instructions for analyzing FastMCP 2.0 and Anthropic MCP Python SDK to inform fjango's MCP integration strategy.
+This document provides detailed instructions for analyzing FastMCP 2.0 and Anthropic MCP Python SDK to inform fastmango's MCP integration strategy.
 
 ## Analysis Scope
 
@@ -138,7 +138,7 @@ For each framework, create a structured analysis document:
 ## Executive Summary
 - 2-3 sentences on overall assessment
 - Key strengths and weaknesses
-- Fit for fjango integration
+- Fit for fastmango integration
 
 ## Architecture Analysis
 [Detailed findings for each category above]
@@ -147,10 +147,10 @@ For each framework, create a structured analysis document:
 [Key patterns with code snippets]
 
 ## Django Integration Assessment
-[Specific evaluation for fjango compatibility]
+[Specific evaluation for fastmango compatibility]
 
 ## Recommendations
-[Specific recommendations for fjango]
+[Specific recommendations for fastmango]
 ```
 
 ### Anthropic MCP SDK Analysis
@@ -179,7 +179,7 @@ Start with these files to understand each framework:
 - `examples/` - Official examples
 - `pyproject.toml` - Dependencies
 
-### 2. Focus Areas for fjango Integration
+### 2. Focus Areas for fastmango Integration
 
 Pay special attention to:
 - **Decorator patterns** for tools/resources (similar to Django views)
@@ -206,7 +206,7 @@ Please provide:
 1. **FastMCP 2.0 Analysis Document** (`FASTMCP_2_ANALYSIS.md`)
 2. **Anthropic MCP SDK Analysis Document** (`ANTHROPIC_MCP_ANALYSIS.md`)
 3. **Comparative Analysis** (`FRAMEWORK_COMPARISON.md`)
-4. **fjango Integration Recommendations** (`FJANGO_MCP_STRATEGY.md`)
+4. **fastmango Integration Recommendations** (`FASTMANGO_MCP_STRATEGY.md`)
 
 ## Analysis Depth Guidelines
 
@@ -218,10 +218,10 @@ Please provide:
 
 After analysis, these should be answerable:
 
-1. Which framework aligns better with fjango's Django-like philosophy?
+1. Which framework aligns better with fastmango's Django-like philosophy?
 2. Which provides better developer experience for Django developers?
 3. Which has better long-term sustainability?
-4. Which would require less adaptation work for fjango integration?
+4. Which would require less adaptation work for fastmango integration?
 5. Is there potential for a hybrid approach using both?
 
 ## Timeline
@@ -230,8 +230,8 @@ Please complete analysis in this order:
 1. FastMCP 2.0 (comprehensive)
 2. Anthropic MCP SDK (comprehensive)
 3. Direct comparison
-4. fjango strategy recommendations
+4. fastmango strategy recommendations
 
 ---
 
-**Note**: This analysis will directly inform fjango's MCP integration strategy and architecture decisions. Focus on practical implications for Django-style web framework development.
+**Note**: This analysis will directly inform fastmango's MCP integration strategy and architecture decisions. Focus on practical implications for Django-style web framework development.

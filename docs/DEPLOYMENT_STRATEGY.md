@@ -1,11 +1,11 @@
-# fjango Deployment Strategy
+# fastmango Deployment Strategy
 
 ## 🎯 Strategy Overview
 
-fjango builds a deployment strategy that provides **a complete developer experience from development to deployment like Supabase** while leveraging **the strengths of the Python ecosystem**.
+fastmango builds a deployment strategy that provides **a complete developer experience from development to deployment like Supabase** while leveraging **the strengths of the Python ecosystem**.
 
 ### Core Objectives
-- **One-click deployment**: Configure production environment with a single `fjango deploy`
+- **One-click deployment**: Configure production environment with a single `fastmango deploy`
 - **PostgreSQL-centric**: Database-first architecture
 - **Scaling support**: Automatic scaling based on traffic growth
 - **AI-friendly**: Optimized for Python AI/ML workloads
@@ -24,8 +24,8 @@ Rapid launch through integration with proven platforms
 
 ```bash
 # Railway deployment
-fjango init myapp --deploy=railway
-fjango deploy railway
+fastmango init myapp --deploy=railway
+fastmango deploy railway
 ```
 
 **Automatic Configuration**:
@@ -41,7 +41,7 @@ fjango deploy railway
 - Excellent performance
 
 ```bash
-fjango deploy fly --regions=nrt,sea
+fastmango deploy fly --regions=nrt,sea
 ```
 
 #### 1.3 Render.com Support
@@ -61,24 +61,24 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 8000
-CMD ["fjango", "start"]
+CMD ["fastmango", "start"]
 ```
 
 ```bash
-fjango docker build              # Generate optimized image
-fjango docker deploy --registry=ghcr.io
+fastmango docker build              # Generate optimized image
+fastmango docker deploy --registry=ghcr.io
 ```
 
 #### 2.2 Major Cloud Platform Support
 ```bash
 # AWS deployment (ECS/Fargate)
-fjango deploy aws --service=fargate
+fastmango deploy aws --service=fargate
 
 # Google Cloud Run
-fjango deploy gcp --service=cloudrun
+fastmango deploy gcp --service=cloudrun
 
 # Azure Container Instances
-fjango deploy azure --service=aci
+fastmango deploy azure --service=aci
 ```
 
 #### 2.3 Kubernetes Support
@@ -87,12 +87,12 @@ fjango deploy azure --service=aci
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fjango-app
+  name: fastmango-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: fjango-app
+      app: fastmango-app
   template:
     spec:
       containers:
@@ -102,17 +102,17 @@ spec:
         - containerPort: 8000
 ```
 
-### Phase 3: fjango Cloud (2026+)
+### Phase 3: fastmango Cloud (2026+)
 Self-managed PaaS platform
 
 #### 3.1 Platform Architecture
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   fjango CLI    │───▶│  Control Plane  │───▶│   Worker Nodes  │
+│   fastmango CLI    │───▶│  Control Plane  │───▶│   Worker Nodes  │
 │                 │    │                 │    │                 │
-│ fjango deploy   │    │ • Orchestration │    │ • App Containers│
-│ fjango logs     │    │ • Monitoring    │    │ • PostgreSQL    │
-│ fjango scale    │    │ • Billing       │    │ • Redis Cache   │
+│ fastmango deploy   │    │ • Orchestration │    │ • App Containers│
+│ fastmango logs     │    │ • Monitoring    │    │ • PostgreSQL    │
+│ fastmango scale    │    │ • Billing       │    │ • Redis Cache   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
@@ -130,8 +130,8 @@ Use PostgreSQL as the default database across all deployment environments
 #### Development Environment
 ```bash
 # Automatic local PostgreSQL setup
-fjango dev --db=auto          # Auto-start Docker Postgres
-fjango migrate --auto         # Auto-migrate development DB
+fastmango dev --db=auto          # Auto-start Docker Postgres
+fastmango migrate --auto         # Auto-migrate development DB
 ```
 
 #### Production Environment
@@ -143,8 +143,8 @@ fjango migrate --auto         # Auto-migrate development DB
 ### Database Migration
 ```bash
 # Safe production migration
-fjango migrate --env=production --dry-run
-fjango migrate --env=production --backup-first
+fastmango migrate --env=production --dry-run
+fastmango migrate --env=production --backup-first
 ```
 
 ## 🤖 AI Workload Optimization
@@ -152,8 +152,8 @@ fjango migrate --env=production --backup-first
 ### GPU Instance Support
 ```bash
 # Deploy AI-intensive workloads
-fjango deploy --gpu=t4        # NVIDIA T4
-fjango deploy --gpu=a100      # NVIDIA A100
+fastmango deploy --gpu=t4        # NVIDIA T4
+fastmango deploy --gpu=a100      # NVIDIA A100
 ```
 
 ### AI Model Caching
@@ -165,7 +165,7 @@ fjango deploy --gpu=a100      # NVIDIA A100
 
 ### Integrated Dashboard
 ```bash
-fjango dashboard              # Open web-based monitoring UI
+fastmango dashboard              # Open web-based monitoring UI
 ```
 
 **Core Metrics**:
@@ -176,9 +176,9 @@ fjango dashboard              # Open web-based monitoring UI
 
 ### Log Management
 ```bash
-fjango logs --tail           # Real-time log streaming
-fjango logs --search="error" # Log search
-fjango logs --export         # Log export
+fastmango logs --tail           # Real-time log streaming
+fastmango logs --search="error" # Log search
+fastmango logs --export         # Log export
 ```
 
 ### Notification System
@@ -203,13 +203,13 @@ fjango logs --export         # Log export
 
 ### Auto Scaling
 ```bash
-fjango scale --min=2 --max=10 --cpu=70%
+fastmango scale --min=2 --max=10 --cpu=70%
 ```
 
 ### Cost Monitoring
 ```bash
-fjango billing              # Current usage and estimated costs
-fjango billing --optimize   # Cost optimization suggestions
+fastmango billing              # Current usage and estimated costs
+fastmango billing --optimize   # Cost optimization suggestions
 ```
 
 ### Resource Policies
@@ -231,22 +231,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Deploy with fjango
-      run: fjango deploy --env=production
+    - name: Deploy with fastmango
+      run: fastmango deploy --env=production
 ```
 
 ### Staged Deployment
 ```bash
 # Development → Staging → Production
-fjango deploy --env=development
-fjango deploy --env=staging --wait-for-tests
-fjango deploy --env=production --approval-required
+fastmango deploy --env=development
+fastmango deploy --env=staging --wait-for-tests
+fastmango deploy --env=production --approval-required
 ```
 
 ### Rollback Support
 ```bash
-fjango rollback                    # Rollback to previous version
-fjango rollback --version=v1.2.3  # Rollback to specific version
+fastmango rollback                    # Rollback to previous version
+fastmango rollback --version=v1.2.3  # Rollback to specific version
 ```
 
 ## 📈 Performance Goals
@@ -270,7 +270,7 @@ fjango rollback --version=v1.2.3  # Rollback to specific version
 
 ### Regional Optimization
 ```bash
-fjango deploy --regions=us-west,eu-west,ap-southeast
+fastmango deploy --regions=us-west,eu-west,ap-southeast
 ```
 
 ### CDN and Caching

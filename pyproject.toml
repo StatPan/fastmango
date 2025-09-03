@@ -66,7 +66,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 pretty = true
 show_error_codes = true
-exclude = ["src/fjango/template/"]
+exclude = ["src/fastmango/template/"]
 
 [[tool.mypy.overrides]]
 module = "fastmcp.*"
@@ -82,11 +82,6 @@ warn_redundant_casts = false
 warn_unused_ignores = false
 pretty = false
 show_error_codes = false
-
-[tool.aerich]
-tortoise_orm = "app.core.db.TORTOISE_ORM"
-location = "./migrations"
-src_folder = "./."
 
 [tool.black]
 line-length = 120

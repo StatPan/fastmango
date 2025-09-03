@@ -1,8 +1,8 @@
-# fjango MCP Integration
+# fastmango MCP Integration
 
 > **Build MCP (Model Context Protocol) tools with Django-like productivity**
 
-fjango provides seamless integration with the Model Context Protocol, enabling developers to create AI tools with familiar Django patterns while leveraging FastAPI's async performance.
+fastmango provides seamless integration with the Model Context Protocol, enabling developers to create AI tools with familiar Django patterns while leveraging FastAPI's async performance.
 
 ## 🎯 Vision: MCP Tools Made Simple
 
@@ -39,10 +39,10 @@ class WeatherServer:
             return [TextContent(type="text", text=f"Weather in {city}: Sunny")]
 ```
 
-### The fjango Way - Django-Like Simplicity
+### The fastmango Way - Django-Like Simplicity
 ```python
-# fjango MCP - Simple and powerful
-from fjango.mcp import mcp_tool
+# fastmango MCP - Simple and powerful
+from fastmango.mcp import mcp_tool
 
 @mcp_tool
 async def get_weather(city: str) -> dict:
@@ -70,7 +70,7 @@ async def search_database(query: str, limit: int = 10) -> list[dict]:
 ### Core Components
 
 ```python
-# fjango MCP Architecture
+# fastmango MCP Architecture
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   @mcp_tool     │───▶│  Schema Gen     │───▶│   MCP Server    │
 │   Decorators    │    │  (Pydantic)     │    │   (JSON-RPC)    │
@@ -93,7 +93,7 @@ async def search_database(query: str, limit: int = 10) -> list[dict]:
 
 ## 🔧 Configuration Modes
 
-fjango supports two configuration philosophies to accommodate different development styles:
+fastmango supports two configuration philosophies to accommodate different development styles:
 
 ### Explicit Mode (Django Style - Default)
 ```python
@@ -128,7 +128,7 @@ MCP_EXCLUDE = [
 
 ### Basic Tool Definition
 ```python
-from fjango.mcp import mcp_tool
+from fastmango.mcp import mcp_tool
 from typing import List, Optional
 
 @mcp_tool
@@ -202,8 +202,8 @@ async def advanced_search(
 
 ### Tool with Authentication and Permissions
 ```python
-from fjango.mcp import mcp_tool, require_auth
-from fjango.auth import User
+from fastmango.mcp import mcp_tool, require_auth
+from fastmango.auth import User
 
 @mcp_tool
 @require_auth(permissions=['database.read'])
@@ -227,14 +227,14 @@ async def get_user_data(user_id: int, current_user: User) -> dict:
 
 ### 1. Project Setup (Django-style)
 ```bash
-# Initialize fjango project
-fjango startproject my-ai-tools
+# Initialize fastmango project
+fastmango startproject my-ai-tools
 cd my-ai-tools
 
 # Create MCP apps (like Django's startapp)
-fjango startmcp weather
-fjango startmcp database  
-fjango startmcp email
+fastmango startmcp weather
+fastmango startmcp database  
+fastmango startmcp email
 
 # Project structure (Django-like)
 my-ai-tools/
@@ -262,10 +262,10 @@ my-ai-tools/
 ### 2. Development Server
 ```bash
 # Start development server with hot reload
-fjango dev
+fastmango dev
 
 # Output:
-🔥 Starting fjango MCP server...
+🔥 Starting fastmango MCP server...
 
 🤖 MCP Server: mcp://localhost:8000
 📊 Available Tools:
@@ -280,22 +280,22 @@ fjango dev
 ### 3. Testing Tools
 ```bash
 # Test individual tools
-fjango mcp test get_weather --args='{"city": "San Francisco"}'
-fjango mcp test search_database --args='{"query": "python"}'
+fastmango mcp test get_weather --args='{"city": "San Francisco"}'
+fastmango mcp test search_database --args='{"query": "python"}'
 
 # Test with Claude Desktop
-fjango mcp connect-claude
+fastmango mcp connect-claude
 ```
 
 ### 4. Production Deployment
 ```bash
 # Build for production
-fjango build
+fastmango build
 
 # Deploy to various platforms
-fjango deploy railway
-fjango deploy fly
-fjango deploy --custom-server
+fastmango deploy railway
+fastmango deploy fly
+fastmango deploy --custom-server
 ```
 
 ## 🔐 Security and Authentication
@@ -320,7 +320,7 @@ MCP_SECURITY = {
 
 ### Custom Authentication
 ```python
-from fjango.mcp.auth import MCPAuthBackend
+from fastmango.mcp.auth import MCPAuthBackend
 
 class CustomMCPAuth(MCPAuthBackend):
     async def authenticate(self, api_key: str) -> Optional[User]:
@@ -353,10 +353,10 @@ async def monitored_tool(param: str) -> dict:
 ### Dashboard Access
 ```bash
 # View analytics dashboard
-fjango dashboard
+fastmango dashboard
 
 # Export usage data
-fjango mcp analytics --export=csv --period=month
+fastmango mcp analytics --export=csv --period=month
 ```
 
 ## 🌟 Integration Examples
@@ -366,7 +366,7 @@ fjango mcp analytics --export=csv --period=month
 {
   "mcpServers": {
     "my-ai-tools": {
-      "command": "fjango", 
+      "command": "fastmango", 
       "args": ["mcp", "serve"],
       "cwd": "/path/to/my-ai-tools"
     }
@@ -376,7 +376,7 @@ fjango mcp analytics --export=csv --period=month
 
 ### Custom Client Integration
 ```python
-from fjango.mcp.client import MCPClient
+from fastmango.mcp.client import MCPClient
 
 async def use_tools():
     client = MCPClient("mcp://localhost:8000")
@@ -415,7 +415,7 @@ async def use_tools():
 - [ ] Advanced analytics dashboard
 - [ ] Enterprise security features
 
-## 💡 Why fjango for MCP?
+## 💡 Why fastmango for MCP?
 
 ### vs Raw MCP Development
 ```python
@@ -423,7 +423,7 @@ async def use_tools():
 class WeatherServer:
     # Complex server setup, protocol handling, etc.
 
-# fjango: 5 lines, production ready
+# fastmango: 5 lines, production ready
 @mcp_tool
 async def get_weather(city: str) -> dict:
     return await weather_api.get(city)
@@ -438,11 +438,11 @@ async def get_weather(city: str) -> dict:
 ## 🚀 Getting Started
 
 ```bash
-# Install fjango
-pip install fjango[mcp]
+# Install fastmango
+pip install fastmango[mcp]
 
 # Create your first MCP project
-fjango init my-tools --template=mcp
+fastmango init my-tools --template=mcp
 
 # Add your first tool
 echo '@mcp_tool
@@ -450,11 +450,11 @@ async def hello_world(name: str) -> str:
     return f"Hello, {name}!"' > tools/hello.py
 
 # Start the server
-fjango dev
+fastmango dev
 
 # Connect with Claude Desktop or any MCP client!
 ```
 
 ---
 
-*fjango MCP integration brings Django's productivity to AI tool development, making it simple to build, deploy, and scale intelligent applications.*
+*fastmango MCP integration brings Django's productivity to AI tool development, making it simple to build, deploy, and scale intelligent applications.*

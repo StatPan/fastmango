@@ -1,6 +1,6 @@
-# fjango Documentation
+# fastmango Documentation
 
-Welcome to the fjango documentation! This directory contains comprehensive guides for understanding, using, and contributing to fjango.
+Welcome to the fastmango documentation! This directory contains comprehensive guides for understanding, using, and contributing to fastmango.
 
 ## 📚 Documentation Overview
 
@@ -30,7 +30,7 @@ Welcome to the fjango documentation! This directory contains comprehensive guide
 3. Understand [Deployment Strategy](DEPLOYMENT_STRATEGY.md) for hosting vision
 
 ### For Framework Adopters
-1. Review [Architecture](ARCHITECTURE.md) for Django → fjango migration patterns
+1. Review [Architecture](ARCHITECTURE.md) for Django → fastmango migration patterns
 2. Check [CLI Design](CLI_DESIGN.md) for developer workflow
 3. Explore [Deployment Strategy](DEPLOYMENT_STRATEGY.md) for scaling options
 
@@ -62,8 +62,8 @@ We welcome improvements to our documentation! Here's how to contribute:
 - Update the status table above when making changes
 
 ### Feedback
-- **Issues**: [GitHub Issues](https://github.com/statpan/fjango/issues) for bugs or missing content
-- **Discussions**: [GitHub Discussions](https://github.com/statpan/fjango/discussions) for questions and suggestions
+- **Issues**: [GitHub Issues](https://github.com/statpan/fastmango/issues) for bugs or missing content
+- **Discussions**: [GitHub Discussions](https://github.com/statpan/fastmango/discussions) for questions and suggestions
 
 ---
 
