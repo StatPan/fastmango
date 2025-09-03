@@ -5,7 +5,7 @@ Welcome to the fjango documentation! This directory contains comprehensive guide
 ## 📚 Documentation Overview
 
 ### Getting Started
-- **[Main README](../README.md)** - Quick start guide and project overview
+- **[Main README](README.md)** - Quick start guide and project overview
 
 ### Core Concepts  
 - **[Project Vision](PROJECT_VISION.md)** - Philosophy, goals, and competitive positioning
@@ -20,8 +20,8 @@ Welcome to the fjango documentation! This directory contains comprehensive guide
 ## 🗺️ Reading Guide
 
 ### For New Users
-1. Start with [Main README](../README.md) for quick overview
-2. Review [Project Vision](../PROJECT_VISION.md) to understand the "why"
+1. Start with [Main README](README.md) for quick overview
+2. Review [Project Vision](PROJECT_VISION.md) to understand the "why"
 3. Check [Roadmap](ROADMAP.md) for current development status
 
 ### For Contributors  
@@ -38,8 +38,8 @@ Welcome to the fjango documentation! This directory contains comprehensive guide
 
 | Document | Status | Last Updated |
 |----------|--------|--------------|
-| [README](../README.md) | ✅ Complete | 2025-01-01 |
-| [Project Vision](../PROJECT_VISION.md) | ✅ Complete | 2025-01-01 |
+| [README](README.md) | ✅ Complete | 2025-01-01 |
+| [Project Vision](PROJECT_VISION.md) | ✅ Complete | 2025-01-01 |
 | [Architecture](ARCHITECTURE.md) | ✅ Complete | 2025-01-01 |
 | [Roadmap](ROADMAP.md) | ✅ Complete | 2025-01-01 |
 | [CLI Design](CLI_DESIGN.md) | ✅ Complete | 2025-01-01 |
