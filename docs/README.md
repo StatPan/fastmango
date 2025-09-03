@@ -5,7 +5,7 @@ Welcome to the fastmango documentation! This directory contains comprehensive gu
 ## 📚 Documentation Overview
 
 ### Getting Started
-- **[Main README](README.md)** - Quick start guide and project overview
+- **[Main README](/)** - Quick start guide and project overview
 
 ### Core Concepts  
 - **[Project Vision](PROJECT_VISION.md)** - Philosophy, goals, and competitive positioning
@@ -20,7 +20,7 @@ Welcome to the fastmango documentation! This directory contains comprehensive gu
 ## 🗺️ Reading Guide
 
 ### For New Users
-1. Start with [Main README](README.md) for quick overview
+1. Start with [Main README](/) for quick overview
 2. Review [Project Vision](PROJECT_VISION.md) to understand the "why"
 3. Check [Roadmap](ROADMAP.md) for current development status
 
@@ -38,7 +38,7 @@ Welcome to the fastmango documentation! This directory contains comprehensive gu
 
 | Document | Status | Last Updated |
 |----------|--------|--------------|
-| [README](README.md) | ✅ Complete | 2025-01-01 |
+| [README](/) | ✅ Complete | 2025-01-01 |
 | [Project Vision](PROJECT_VISION.md) | ✅ Complete | 2025-01-01 |
 | [Architecture](ARCHITECTURE.md) | ✅ Complete | 2025-01-01 |
 | [Roadmap](ROADMAP.md) | ✅ Complete | 2025-01-01 |

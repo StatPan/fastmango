@@ -9,10 +9,9 @@ nav:
     - "Architecture": "ARCHITECTURE.md"
     - "CLI Design": "CLI_DESIGN.md"
     - "Deployment Strategy": "DEPLOYMENT_STRATEGY.md"
-    - "Development Roadmap": "DEVELOPMENT_ROADMAP.md"
+    - "Roadmap": "ROADMAP.md"
     - "GitHub Issues": "GITHUB_ISSUES.md"
     - "MCP Integration": "MCP_INTEGRATION.md"
-    - "Roadmap": "ROADMAP.md"
   - "Analysis":
     - "Home": "analysis/README.md"
     - "FastMCP 2 Analysis": "analysis/FASTMCP_2_ANALYSIS.md"
