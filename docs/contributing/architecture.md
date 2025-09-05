@@ -33,26 +33,14 @@ myproject/
 ├── static/           # Static files
 └── manage.py         # CLI tool
 
-# fastmango API Structure  
+# fastmango API Structure (Current)
 myproject/
-├── myproject/          # Project settings
-│   ├── settings.py     # App configuration (Django style)
-│   ├── routes.py       # Main routing
-│   ├── main.py         # FastAPI app instance
-│   └── asgi.py         # ASGI server configuration
-├── myapp/             # fastmango app
-│   ├── models.py       # SQLModel models
-│   ├── api.py          # API endpoints (views.py → api.py)
-│   ├── schemas.py      # Pydantic schemas (forms.py → schemas.py)
-│   ├── routes.py       # URL routing (same as urls.py)
-│   ├── admin.py        # Admin registration (Django style)
-│   └── apps.py         # App configuration
-├── migrations/        # Alembic migrations
-├── tests/            # Test files
-└── fastmango.py         # CLI tool (manage.py → fastmango.py)
+└── main.py         # Main application file
 ```
 
-### File Naming Rationale
+> **Note**: The project is in its early stages. The structure above reflects the current state of the `fastmango new` command. The long-term vision is to have a more Django-like structure, as described in the "Future Vision" section below.
+
+### File Naming Rationale (Future Vision)
 
 | Django | fastmango | Reason for Change |
 |--------|--------|-------------------|

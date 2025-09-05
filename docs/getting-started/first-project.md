@@ -15,7 +15,7 @@ from sqlmodel import Field
 
 # 1. Initialize the MangoApp
 app = MangoApp(
-    title="{{ project_name }}",
+    title="My Awesome Project",
     database_url="sqlite+aiosqlite:///db.sqlite3",
 )
 

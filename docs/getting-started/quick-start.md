@@ -30,21 +30,7 @@ Navigate into your new project directory:
 cd myproject
 ```
 
-You'll find a directory structure that looks something like this:
-
-```
-myproject/
-├── myproject/
-│   ├── settings.py
-│   ├── main.py
-│   └── routes.py
-├── myapp/
-│   ├── models.py
-│   ├── api.py
-│   ├── schemas.py
-│   └── routes.py
-└── fastmango.py
-```
+You'll find a single file, `main.py`, in your new project directory. This file contains the core of your application.
 
 This structure is designed to be familiar to Django developers while being optimized for modern API development.
 
