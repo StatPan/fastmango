@@ -29,10 +29,14 @@ app = MangoApp(
 
 ### 2. Create a `requirements.txt` File
 
-Most PaaS providers will need a `requirements.txt` file to know which Python packages to install. You can create this file by running:
+Most PaaS providers will need a `requirements.txt` file to know which Python packages to install.
+
+While you can use `pip freeze > requirements.txt` to generate this file, we recommend using [uv](https://github.com/astral-sh/uv), a next-generation package manager that is significantly faster than `pip`.
+
+To create a `requirements.txt` file with `uv`, run:
 
 ```bash
-pip freeze > requirements.txt
+uv pip freeze > requirements.txt
 ```
 
 ### 3. Configure Your `Procfile`
