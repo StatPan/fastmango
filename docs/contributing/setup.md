@@ -35,19 +35,17 @@ source venv/bin/activate
 
 ## 3. Install Dependencies
 
-FastMango uses [Poetry](https://python-poetry.org/) to manage its dependencies. To install all the required dependencies, including the development dependencies, run:
+FastMango uses [uv](https://github.com/astral-sh/uv) to manage its dependencies. To install all the required dependencies, including the development dependencies, run:
 
 ```bash
-pip install -e ".[dev]"
+uv sync
 ```
 
-This will install all the packages listed in the `pyproject.toml` file in editable mode.
+This will install all the packages listed in the `pyproject.toml` file.
 
 ## 4. Run the Tests
 
-> **Note**: The testing infrastructure is still under development.
-
-Once the testing infrastructure is in place, you will be able to run the tests using the following command:
+You can run the tests using the following command:
 
 ```bash
 pytest
