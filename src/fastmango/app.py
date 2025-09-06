@@ -77,6 +77,7 @@ class MangoApp:
             # Logic to initialize the MCP server will go here.
             pass
 
+
     def get(self, path: str, **kwargs):
         """Registers a GET route."""
         return self.fastapi_app.get(path, **kwargs)
