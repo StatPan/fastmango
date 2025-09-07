@@ -33,6 +33,10 @@ dev = [
     "mkdocs-material>=9.5.3",
     "mkdocstrings[python]>=0.24.0",
     "pre-commit>=3.0.0",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.1.0",
+    "httpx>=0.28.1",
+    "pytest-cov>=6.2.1",
 ]
 
 [project.scripts]
@@ -102,10 +106,3 @@ exclude = '''
   | dist
 )/
 '''
-
-[dependency-groups]
-dev = [
-    "mkdocs-material>=9.6.18",
-    "mkdocstrings[python]>=0.30.0",
-    "pre-commit>=4.3.0",
-]
