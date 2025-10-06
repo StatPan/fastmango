@@ -23,6 +23,8 @@ class MangoApp:
         database_url: Optional[str] = None,
         llm_config: Optional[LLMConfig] = None,
         mcp_config: Optional[MCPConfig] = None,
+        enable_admin: bool = True,
+        admin_url: str = "/admin",
         **kwargs,
     ):
         """
@@ -32,12 +34,16 @@ class MangoApp:
             database_url: The connection string for the database.
             llm_config: Configuration for the LLM engine.
             mcp_config: Configuration for the MCP server.
+            enable_admin: Whether to enable the admin interface (default: True).
+            admin_url: URL path for the admin interface (default: "/admin").
             **kwargs: Additional arguments to be passed to the FastAPI constructor.
         """
         self.fastapi_app = FastAPI(**kwargs)
         self.db_url = database_url
         self.llm_config = llm_config
         self.mcp_config = mcp_config
+        self.enable_admin = enable_admin
+        self.admin_url = admin_url
 
         # Database setup
         self.db_engine = None
@@ -65,6 +71,16 @@ class MangoApp:
             async def on_shutdown():
                 if self.db_engine:
                     await self.db_engine.dispose()
+
+        # Admin setup
+        self.admin = None
+        if self.enable_admin and ADMIN_AVAILABLE and self.db_engine:
+            try:
+                self.admin = FastMangoAdmin(self, admin_url=self.admin_url)
+            except Exception as e:
+                # Fail gracefully if admin setup fails
+                print(f"Warning: Admin setup failed: {e}")
+                self.admin = None
 
         # Placeholder for future engine/server instances
         self.llm_engine = None
