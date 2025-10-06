@@ -161,6 +161,10 @@ class FastMangoAdmin:
         column_list = self._get_model_columns(model_class)
         search_fields = self._get_search_fields(model_class)
         
+        # Get primary key information dynamically
+        pk_columns = [col.name for col in model_class.__table__.primary_key.columns]
+        identity = pk_columns[0] if pk_columns else "id"
+        
         # Create the admin view class
         admin_view_class = type(
             class_name,
@@ -173,8 +177,8 @@ class FastMangoAdmin:
                 "name": model_class.__name__,
                 "model": model_class,  # Set model as class attribute
                 # Add required SQLAdmin attributes
-                "identity": "id",  # Primary key field
-                "pk_columns": ["id"],  # Primary key columns
+                "identity": identity,  # Primary key field
+                "pk_columns": pk_columns,  # Primary key columns
             }
         )
         
@@ -199,7 +203,7 @@ class FastMangoAdmin:
                 continue
             
             # Skip foreign key fields for simplicity in default view
-            if field_info.annotation and 'ForeignKey' in str(field_info.annotation):
+            if field_info.foreign_key:
                 continue
             
             columns.append(field_name)
@@ -222,15 +226,27 @@ class FastMangoAdmin:
         """
         search_fields = []
         
+        from typing import get_origin, get_args, Union
+        
         for field_name, field_info in model_class.model_fields.items():
             # Include string fields in search
-            if field_info.annotation and (
-                'str' in str(field_info.annotation) or
-                'email' in field_name.lower() or
-                'name' in field_name.lower() or
-                'username' in field_name.lower()
-            ):
-                search_fields.append(field_name)
+            if field_info.annotation:
+                # Check if it's a string type (including Optional[str])
+                annotation = field_info.annotation
+                origin = get_origin(annotation)
+                args = get_args(annotation)
+                
+                is_string_type = (
+                    annotation is str or
+                    (origin is Union and str in args) or
+                    (origin is Union and len(args) == 2 and args[0] is str and args[1] is type(None))
+                )
+                
+                if is_string_type or \
+                   'email' in field_name.lower() or \
+                   'name' in field_name.lower() or \
+                   'username' in field_name.lower():
+                    search_fields.append(field_name)
         
         return search_fields
     

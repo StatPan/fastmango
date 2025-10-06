@@ -7,6 +7,70 @@ Provides command-line interface for managing FastMango admin functionality.
 import typer
 from typing import Optional
 import uvicorn
+from passlib.context import CryptContext
+
+# Password hashing context
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    """Hash a password using bcrypt."""
+    return pwd_context.hash(password)
+
+async def create_admin_user(username: str, email: str, password: str, database_url: Optional[str] = None) -> bool:
+    """Create an admin user with the given credentials."""
+    try:
+        from ..app import MangoApp
+        from ..models import User
+        
+        # Create app with database
+        mango_app = MangoApp(database_url=database_url)
+        
+        if mango_app.db_engine is None:
+            typer.echo("❌ Database is not configured.", err=True)
+            return False
+        
+        # Check if user already exists
+        async with mango_app.session_factory() as session:
+            # Import the context variable
+            from ..models import db_session_context
+            
+            # Set the session context
+            token = db_session_context.set(session)
+            try:
+                # Check if user already exists
+                existing_user = await User.objects.get(username=username)
+                if existing_user:
+                    typer.echo(f"❌ User '{username}' already exists.", err=True)
+                    return False
+                
+                # Check if email already exists
+                existing_email = await User.objects.get(email=email)
+                if existing_email:
+                    typer.echo(f"❌ Email '{email}' already exists.", err=True)
+                    return False
+                
+                # Create the user with hashed password
+                user = await User.objects.create(
+                    username=username,
+                    email=email,
+                    password_hash=hash_password(password),
+                    is_active=True,
+                )
+                
+                typer.echo(f"✅ Admin user '{username}' created successfully!")
+                typer.echo(f"📧 Email: {email}")
+                typer.echo(f"🔑 You can now log in at /admin")
+                return True
+                
+            finally:
+                db_session_context.reset(token)
+                
+    except ImportError as e:
+        typer.echo(f"❌ Failed to import FastMango: {e}", err=True)
+        return False
+    except Exception as e:
+        typer.echo(f"❌ Failed to create admin user: {e}", err=True)
+        return False
 
 app = typer.Typer(
     name="admin", 
@@ -91,67 +155,12 @@ def createuser(
         fastmango admin createuser
         fastmango admin createuser --database-url sqlite:///admin.db
     """
-    try:
-        from ..app import MangoApp
-        from ..models import User
-        
-        # Create app with database
-        mango_app = MangoApp(database_url=database_url)
-        
-        if mango_app.db_engine is None:
-            typer.echo("❌ Database is not configured.", err=True)
-            raise typer.Exit(1)
-        
-        # Check if user already exists
-        async def create_admin_user():
-            async with mango_app.session_factory() as session:
-                # Import the context variable
-                from ..models import db_session_context
-                
-                # Set the session context
-                token = db_session_context.set(session)
-                try:
-                    # Check if user already exists
-                    existing_user = await User.objects.get(username=username)
-                    if existing_user:
-                        typer.echo(f"❌ User '{username}' already exists.", err=True)
-                        return False
-                    
-                    # Check if email already exists
-                    existing_email = await User.objects.get(email=email)
-                    if existing_email:
-                        typer.echo(f"❌ Email '{email}' already exists.", err=True)
-                        return False
-                    
-                    # Create the user
-                    # Note: In a real implementation, you'd hash the password
-                    user = await User.objects.create(
-                        username=username,
-                        email=email,
-                        # password_hash=hash_password(password),  # Would need password hashing
-                        is_active=True,
-                    )
-                    
-                    typer.echo(f"✅ Admin user '{username}' created successfully!")
-                    typer.echo(f"📧 Email: {email}")
-                    typer.echo(f"🔑 You can now log in at /admin")
-                    return True
-                    
-                finally:
-                    db_session_context.reset(token)
-        
-        # Run the async function
-        import asyncio
-        result = asyncio.run(create_admin_user())
-        
-        if not result:
-            raise typer.Exit(1)
-            
-    except ImportError as e:
-        typer.echo(f"❌ Failed to import FastMango: {e}", err=True)
-        raise typer.Exit(1)
-    except Exception as e:
-        typer.echo(f"❌ Failed to create admin user: {e}", err=True)
+    import asyncio
+    
+    # Run the async function
+    result = asyncio.run(create_admin_user(username, email, password, database_url))
+    
+    if not result:
         raise typer.Exit(1)
 
 
@@ -258,9 +267,16 @@ def setup(
         # Ask if user wants to create an admin user
         create_user = typer.confirm("Would you like to create an admin user now?")
         if create_user:
-            # Delegate to createuser command
-            from .admin import createuser as create_user_cmd
-            create_user_cmd(database_url=database_url)
+            # Get user credentials
+            username = typer.prompt("Admin username")
+            email = typer.prompt("Admin email")
+            password = typer.prompt("Admin password", hide_input=True, confirmation_prompt=True)
+            
+            # Create the user
+            import asyncio
+            result = asyncio.run(create_admin_user(username, email, password, database_url))
+            if not result:
+                raise typer.Exit(1)
         
         typer.echo("\n🎉 Setup complete!")
         typer.echo(f"Start your app with: fastmango admin serve --admin-url {admin_url}")
