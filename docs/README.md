@@ -1,70 +1,54 @@
-# fastmango Documentation
+# 📋 FastMango Documentation
 
-Welcome to the fastmango documentation! This directory contains comprehensive guides for understanding, using, and contributing to fastmango.
+## 🎯 Project Overview
 
-## 📚 Documentation Overview
+FastMango는 **Django의 생산성**과 **FastAPI의 성능**을 결합한 AI-first 웹 프레임워크입니다. Model Context Protocol (MCP) 통합을 통해 개발자가 AI 툴을 쉽게 만들 수 있도록 지원합니다.
 
-### Getting Started
-- **[Main README](/)** - Quick start guide and project overview
+## 📚 Documentation Structure
 
-### Core Concepts  
-- **[Project Vision](PROJECT_VISION.md)** - Philosophy, goals, and competitive positioning
-- **[Architecture](ARCHITECTURE.md)** - Technical design and Django patterns implementation
-- **[MCP Integration](MCP_INTEGRATION.md)** - AI tool development with Model Context Protocol
+### 🚀 Getting Started
+- [Installation](getting-started/installation.md) - 설치 가이드
+- [Quick Start](getting-started/quick-start.md) - 5분 만첫 시작하기
+- [First Project](getting-started/first-project.md) - 첫 프로젝트 만들기
 
-### Implementation Details
-- **[Roadmap](ROADMAP.md)** - Development phases and timeline
-- **[CLI Design](CLI_DESIGN.md)** - Command-line interface specification
-- **[Deployment Strategy](DEPLOYMENT_STRATEGY.md)** - Hosting and scaling plans
+### 🎯 Core Concepts  
+- [Project Vision](PROJECT_VISION.md) - 프로젝트 비전과 철학
+- [MCP Integration](MCP_INTEGRATION.md) - AI 툴 개발 가이드
+- [Architecture](contributing/architecture.md) - 기술 설계
 
-## 🗺️ Reading Guide
+### 🛠️ Development
+- [CLI Reference](reference/cli.md) - 명령줄 도구
+- [API Reference](reference/api.md) - API 문서
+- [Configuration](reference/configuration.md) - 설정 가이드
 
-### For New Users
-1. Start with [Main README](/) for quick overview
-2. Review [Project Vision](PROJECT_VISION.md) to understand the "why"
-3. Check [Roadmap](ROADMAP.md) for current development status
+### 🤝 Contributing
+- [Contributing Guide](contributing/guidelines.md) - 기여 가이드
+- [Setup](contributing/setup.md) - 개발 환경 설정
 
-### For Contributors  
-1. Read [Architecture](ARCHITECTURE.md) for technical implementation details
-2. Review [CLI Design](CLI_DESIGN.md) for command interface patterns
-3. Understand [Deployment Strategy](DEPLOYMENT_STRATEGY.md) for hosting vision
+## 🎯 Key Features
 
-### For Framework Adopters
-1. Review [Architecture](ARCHITECTURE.md) for Django → fastmango migration patterns
-2. Check [CLI Design](CLI_DESIGN.md) for developer workflow
-3. Explore [Deployment Strategy](DEPLOYMENT_STRATEGY.md) for scaling options
+- **Django-style ORM**: 익숙한 Model.objects 패턴
+- **MCP Integration**: @mcp_tool 데코이터로 AI 툴 생성
+- **SQLModel Support**: 타입 안전한 데이터 모델
+- **Admin Interface**: 자동 생성되는 관리 대시보드
+- **Async Performance**: 진정한 비동기 처리
 
-## 🔄 Document Status
+## 🚀 Quick Start
 
-| Document | Status | Last Updated |
-|----------|--------|--------------|
-| [README](/) | ✅ Complete | 2025-01-01 |
-| [Project Vision](PROJECT_VISION.md) | ✅ Complete | 2025-01-01 |
-| [Architecture](ARCHITECTURE.md) | ✅ Complete | 2025-01-01 |
-| [Roadmap](ROADMAP.md) | ✅ Complete | 2025-01-01 |
-| [CLI Design](CLI_DESIGN.md) | ✅ Complete | 2025-01-01 |
-| [Deployment Strategy](DEPLOYMENT_STRATEGY.md) | ✅ Complete | 2025-01-01 |
+```bash
+# 설치
+pip install fastmango
 
-## 🤝 Contributing to Documentation
+# 프로젝트 생성
+fastmango init myproject
 
-We welcome improvements to our documentation! Here's how to contribute:
+# 개발 서버 시작
+cd myproject
+fastmango dev
+```
 
-### Types of Contributions
-- **Typo fixes** - Small corrections and improvements
-- **Content updates** - Adding missing information or clarifications  
-- **New sections** - Expanding coverage of specific topics
-- **Examples** - Adding code samples and use case demonstrations
+## 📖 Learn More
 
-### Guidelines
-- Keep documentation clear and concise
-- Use consistent formatting and style
-- Include code examples where helpful
-- Update the status table above when making changes
-
-### Feedback
-- **Issues**: [GitHub Issues](https://github.com/statpan/fastmango/issues) for bugs or missing content
-- **Discussions**: [GitHub Discussions](https://github.com/statpan/fastmango/discussions) for questions and suggestions
-
----
-
-*Documentation is code - let's make it great together!* 🚀
+- [Project Vision](PROJECT_VISION.md) - 왜 FastMango인가?
+- [MCP Integration](MCP_INTEGRATION.md) - AI 툴 개발하기
+- [Getting Started](getting-started/) - 자세한 시작 가이드
