@@ -1,187 +1,187 @@
-# fastmango Development Roadmap
+# FastMango Development Roadmap
 
-## 📅 Development Timeline
+## Overview
 
-### Phase 1: Foundation
+This document outlines the development phases for FastMango, an AI-first web framework that unifies FastAPI, FastMCP, and Django patterns.
 
-#### 1.1 Project Structure & CLI Foundation
-- [x] Define basic project structure
-- [x] Determine core technology stack (FastAPI + SQLModel + Pydantic)
-- [ ] Implement modern CLI command system
-  - `fastmango init` - Project initialization
-  - `fastmango dev` - Development server
-  - `fastmango migrate` - Database migrations
-- [ ] Develop project template engine
+## Phase 1: Core Framework Foundation (MVP)
+**Timeline**: 2-3 months  
+**Goal**: Basic MangoApp class with unified web/AI/MCP integration
 
-#### 1.2 Django-like ORM Layer
-- [ ] Implement SQLModel-based ORM wrapper
-- [ ] Create Django-style `objects` manager
-- [ ] Build model definition and relationship API
-- [ ] Integrate Alembic migration system
+### Milestones
+- [ ] **Core Architecture**
+  - MangoApp class with FastAPI integration
+  - Basic LLM engine (Pydantic AI)
+  - MCP server integration (FastMCP)
+  - Unified configuration system
 
-#### 1.3 Basic Development Environment
-- [ ] Implement development server with hot reload
-- [ ] Environment configuration management (.env file support)
-- [ ] Build logging system
+- [ ] **CLI Tools**
+  - `fastmango new` project generator
+  - `fastmango run` development server
+  - Basic project templates
+  - Alias recommendation (`fmgo`)
 
-### Phase 2: Core API Features
+- [ ] **Database Integration**
+  - SQLModel + SQLAlchemy async
+  - Basic migrations (Alembic)
+  - Django-style model patterns
 
-#### 2.1 Authentication & Authorization System
-- [ ] Implement JWT token-based authentication
-- [ ] Create user models and permission groups
-- [ ] Build permission checking with FastAPI Depends
-- [ ] Implement authentication middleware
+### Key Deliverables
+```python
+# Target API for Phase 1
+from fastmango import MangoApp
 
-#### 2.2 Data Serialization & API
-- [ ] Build Pydantic-based serialization system
-- [ ] Auto-generate API documentation (Swagger/OpenAPI)
-- [ ] Implement input data validation
-- [ ] Standardize error handling
+app = MangoApp()
 
-#### 2.3 Developer Tools
-- [ ] `fastmango shell` - Interactive Python shell
-- [ ] `fastmango dbshell` - Database shell
-- [ ] Integrate debugging tools
+@app.get("/api/users")
+async def get_users():
+    return await User.objects.all()
 
-### Phase 3: Productivity Boosters
+@app.llm_endpoint("/chat")
+async def chat(message: str):
+    return await app.llm.generate(message)
 
-#### 3.1 Automatic API Admin
-- [ ] Generate auto CRUD APIs based on SQLModel models
-- [ ] Develop web-based Admin UI (React/Vue-based)
-- [ ] Build model registration and management system
-- [ ] Implement permission-based access control
+@app.mcp_tool()
+def search_database(query: str):
+    return User.objects.filter(name__contains=query)
+```
 
-#### 3.2 Monitoring & Dashboard
-- [ ] Collect system metrics (request count, response time, DB performance)
-- [ ] Implement real-time log streaming
-- [ ] Build integrated dashboard UI
-- [ ] Create notification system
+## Phase 2: AI & MCP Enhancement
+**Timeline**: 1-2 months  
+**Goal**: Advanced AI/MCP features and multiple provider support
 
-#### 3.3 Background Tasks
-- [ ] Integrate async task queues (Celery/ARQ)
-- [ ] Add scheduler support
-- [ ] Build task monitoring UI
+### Milestones
+- [ ] **Multi-LLM Support**
+  - OpenAI, Anthropic, Ollama providers
+  - Provider switching and fallback
+  - Context management and caching
 
-### Phase 4: AI Integration
+- [ ] **Advanced MCP Features**
+  - Auto-generated MCP tools from models
+  - MCP client capabilities
+  - Tool composition and chaining
 
-#### 4.1 Pydantic AI Integration
-- [ ] Implement AI tool decorator system
-- [ ] Build LLM model management and configuration
-- [ ] Enable type-safe AI function calling
+- [ ] **Developer Experience**
+  - Hot reload for MCP tools
+  - AI/MCP debugging tools
+  - Enhanced error handling
 
-#### 4.2 AI Developer Tools
-- [ ] Create automatic AI tool registration system
-- [ ] Build AI API usage monitoring
-- [ ] Implement AI response caching system
+## Phase 3: Production Features
+**Timeline**: 1-2 months  
+**Goal**: Production-ready features and deployment support
 
-### Phase 5: Deployment & Hosting
+### Milestones
+- [ ] **Security & Auth**
+  - JWT authentication
+  - API key management
+  - MCP tool permissions
 
-#### 5.1 Deployment Automation
-- [ ] `fastmango build` - Production build
-- [ ] `fastmango deploy` - Cloud deployment
-- [ ] Docker container support
-- [ ] Environment-specific configuration management
+- [ ] **Monitoring & Observability**
+  - Request/response logging
+  - AI usage metrics
+  - Performance monitoring
 
-#### 5.2 Cloud Platform Integration
-- [ ] Railway.app integration
-- [ ] Fly.io deployment support
-- [ ] Render.com integration
-- [ ] AWS/GCP/Azure support
+- [ ] **Deployment**
+  - Docker containerization
+  - Cloud deployment guides
+  - Environment configuration
 
-#### 5.3 Managed Hosting (fastmango Cloud)
-- [ ] Develop proprietary PaaS platform
-- [ ] Auto-provision PostgreSQL
-- [ ] Automatic SSL certificate management
-- [ ] Scaling and load balancing
+## Phase 4: First Use Case - 국회 공공데이터 MCP
+**Timeline**: 1 month  
+**Goal**: Real-world validation with Korean National Assembly data
 
-## 🎯 Core Objectives
+### Milestones
+- [ ] **Public Data Integration**
+  - 열린국회정보 API wrapper
+  - 공공데이터 포털 integration
+  - NABOSTATS API support
 
-### Developer Experience
-- Combine Django's productivity with FastAPI performance
-- Intuitive development workflow with modern CLI
-- Quick start with minimal configuration
+- [ ] **MCP Tools Development**
+  - Assembly member search
+  - Bill tracking and analysis
+  - Budget data queries
+  - Statistical analysis tools
 
-### Performance & Scalability
-- True async processing (solving Django-Ninja's fake async issues)
-- PostgreSQL optimization
-- Horizontal scaling support
+- [ ] **Service Deployment**
+  - Oracle Cloud deployment
+  - Public MCP server hosting
+  - Documentation and examples
 
-### Ecosystem Integration
-- Compatibility with existing FastAPI ecosystem
-- Natural integration with Python AI/ML libraries
-- Modern development tool integration
+### Target MCP Tools
+```python
+@app.mcp_tool()
+def search_assembly_members(name: str, party: str = None):
+    """국회의원 검색"""
+    
+@app.mcp_tool() 
+def get_bill_info(bill_id: str):
+    """의안 정보 조회"""
+    
+@app.mcp_tool()
+def get_budget_data(year: int, category: str):
+    """예산 데이터 조회"""
+```
 
-## 📊 Success Metrics
+## Success Metrics
 
-### Technical Indicators
-- Development server start time < 2 seconds
-- Average API response time < 100ms
-- Memory usage < 50MB (basic app)
+### Phase 1 Success Criteria
+- CLI can generate functional FastMango project
+- Basic web + AI + MCP integration working
+- 5+ GitHub stars, initial community interest
 
-### Developer Adoption Indicators
-- GitHub Stars > 1,000 (by Phase 3 completion)
-- Monthly downloads > 10,000 (by Phase 4 completion)
-- Community contributors > 50
+### Phase 2 Success Criteria  
+- Multiple LLM providers supported
+- Advanced MCP tooling functional
+- 50+ GitHub stars, developer adoption
 
-### Ecosystem Indicators
-- Third-party plugins > 20
-- Enterprise adoption cases > 100
-- Official hosting users > 1,000
+### Phase 3 Success Criteria
+- Production deployment successful
+- Security and monitoring in place
+- 200+ GitHub stars, enterprise interest
 
-## 🚀 Milestones
+### Phase 4 Success Criteria
+- Public 국회 데이터 MCP server running
+- Real-world usage and feedback
+- 500+ GitHub stars, media coverage
 
-- **MVP**: Phase 1 complete
-- **Beta**: Phase 2 complete
-- **v1.0**: Phase 3 complete
-- **AI-Enhanced**: Phase 4 complete
-- **Enterprise**: Phase 5 complete
+## Risk Mitigation
 
-## 🎖️ Version Strategy
+### Technical Risks
+- **FastMCP API changes**: Pin versions, maintain compatibility layer
+- **Pydantic AI evolution**: Monitor updates, contribute to ecosystem
+- **Performance bottlenecks**: Profile early, optimize incrementally
 
-### v0.1 (MVP)
-- Basic CLI tools
-- Project templates
-- SQLModel integration
-- Simple authentication
+### Market Risks
+- **AI ecosystem changes**: Stay flexible, support multiple providers
+- **Competition emergence**: Focus on unique value proposition
+- **Developer adoption**: Community engagement, excellent documentation
 
-### v0.5 (Beta)
-- Full authentication system
-- API serialization
-- Developer tools
-- Documentation site
+## Resource Requirements
 
-### v1.0 (Stable)
-- Auto-generated admin
-- Monitoring dashboard
-- Background tasks
-- Production deployment tools
+### Development Time
+- **Solo development**: 5-7 months total
+- **Part-time commitment**: ~20 hours/week
+- **Milestone-driven approach**: Ship incrementally
 
-### v1.5 (AI-Enhanced)
-- Pydantic AI integration
-- AI tool system
-- Advanced monitoring
-- Cloud platform integrations
+### Infrastructure Needs
+- **Development**: Local development environment
+- **Testing**: Oracle Cloud free tier
+- **Deployment**: Home network + Oracle Cloud
+- **Monitoring**: Open source tools (Prometheus, Grafana)
 
-### v2.0 (Enterprise)
-- fastmango Cloud platform
-- Advanced scaling features
-- Enterprise security
-- Multi-tenancy support
+## Next Steps
 
-## 🔄 Feedback & Iteration
+### Immediate Actions (Week 1-2)
+1. Create detailed GitHub issues from this roadmap
+2. Set up project structure and CI/CD
+3. Begin Phase 1 core architecture implementation
 
-### Community Feedback Integration
-- Regular community surveys
-- GitHub issue prioritization
-- Discord/forum discussions
-- Conference presentations
-
-### Performance Benchmarking
-- Continuous performance testing
-- Comparison with Django/FastAPI
-- Memory usage optimization
-- Load testing automation
+### Milestone Tracking
+- GitHub Projects for kanban-style tracking
+- Weekly progress reviews
+- Community feedback integration
 
 ---
 
-*This roadmap is a living document that evolves based on community feedback and technical discoveries.*
+*Updated: 2025-09-02*
+*Next Review: Weekly during active development*

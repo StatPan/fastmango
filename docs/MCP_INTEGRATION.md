@@ -458,3 +458,39 @@ fastmango dev
 ---
 
 *fastmango MCP integration brings Django's productivity to AI tool development, making it simple to build, deploy, and scale intelligent applications.*
+
+## 🏗️ Integration Strategy
+
+### Core Principle: Embrace and Extend
+The integration strategy embraces **FastMCP 2.0 as the core MCP engine** and extends its capabilities to provide a seamless, Django-like experience.
+
+### Key Components
+- **Dependency**: Direct dependency on `fastmcp`
+- **Configuration**: `FASTMCP_SETTINGS` in settings.py
+- **App-Based Servers**: `mcp.py` files in each app
+- **Auto-Discovery**: Automatic mounting of app MCP servers
+- **CLI Integration**: Extended fastmango CLI commands
+
+### Implementation Pattern
+```python
+# myapp/mcp.py
+from fastmango.mcp import FastMCP
+
+app_mcp = FastMCP(name="My App MCP Server")
+
+@app_mcp.tool
+def my_app_tool(param: str) -> str:
+    return f"Hello from {param}"
+```
+
+### CLI Commands
+```bash
+# Start web server + MCP server
+fastmango runserver
+
+# Run MCP server separately
+fastmango runmcp
+
+# Interact with MCP server
+fastmango mcp list-tools
+```

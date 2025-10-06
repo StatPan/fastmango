@@ -83,3 +83,27 @@ Render is another popular PaaS that makes it easy to deploy applications. To dep
 In the future, we plan to provide a more streamlined deployment experience with the `fastmango deploy` command. This will allow you to deploy your application to various platforms with a single command, without having to manually configure your application for each platform.
 
 We also plan to provide built-in support for containerization with Docker and deployment to major cloud providers like AWS, Google Cloud, and Azure. Stay tuned for updates!
+
+
+## 🚀 Deployment
+
+### One-Click Deployment
+fastmango는 **개발부터 배포까지 완전한 개발자 경험**을 제공합니다.
+
+```bash
+# 프로덕션 배포
+fastmango deploy railway
+fastmango deploy fly.io
+fastmango deploy render
+```
+
+### 지원하는 플랫폼
+- Railway.app
+- Fly.io  
+- Render.com
+- AWS/GCP/Azure
+
+### 데이터베이스
+- PostgreSQL 중심 아키텍처
+- 자동 스케일링 지원
+- 백업 및 복구 기능

@@ -1,5 +1,5 @@
 from typing import ClassVar, Generic, List, Optional, Type, TypeVar
-from sqlmodel import SQLModel, select
+from sqlmodel import SQLModel, Field, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 from contextvars import ContextVar
@@ -44,14 +44,14 @@ class Manager(Generic[T]):
         return result.scalars().all()
 
     async def get(self, **kwargs) -> Optional[T]:
-        """Retrieves a single object or None if not found."""
+        """Retrieivs a single object or None if not found."""
         session = self._get_session()
         statement = select(self.model_class).filter_by(**kwargs)
         result = await session.execute(statement)
         return result.scalars().first()
 
     async def get_or_404(self, **kwargs) -> T:
-        """Retrieves a single object or raises an HTTPException if not found."""
+        """Retrieivs a single object or raises an HTTPException if not found."""
         obj = await self.get(**kwargs)
         if obj is None:
             raise HTTPException(status_code=404, detail=f"{self.model_class.__name__} not found.")
@@ -91,3 +91,11 @@ class Model(SQLModel):
         session = self.objects._get_session()
         await session.delete(self)
         await session.commit()
+
+# --- Add a simple User model for testing ---
+class User(Model, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(index=True, unique=True)
+    email: str = Field(unique=True)
+    password_hash: Optional[str] = Field(default=None)
+    is_active: bool = Field(default=True)

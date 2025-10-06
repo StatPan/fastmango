@@ -59,7 +59,7 @@ class ModelAdmin(ModelView):
         # Set model as class attribute
         self.model = model
         
-        super().__init__(**kwargs)
+        super().__init__(model=model, **kwargs)
     
     def _apply_django_configurations(self) -> None:
         """
