@@ -1,12 +1,11 @@
 import pytest
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import Mock
 
 from fastmango.admin import Admin
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_creation():
+def test_admin_creation():
     """Test basic admin creation."""
     admin = Admin()
     
@@ -15,9 +14,8 @@ async def test_admin_creation():
     assert len(admin.models) == 0
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_register_model():
+def test_admin_register_model():
     """Test model registration in admin."""
     admin = Admin()
     
@@ -32,9 +30,8 @@ async def test_admin_register_model():
     assert admin.models["TestModel"] == mock_model
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_register_duplicate_model():
+def test_admin_register_duplicate_model():
     """Test that registering the same model twice raises an error."""
     admin = Admin()
     
@@ -48,9 +45,8 @@ async def test_admin_register_duplicate_model():
         admin.register_model(mock_model)
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_unregister_model():
+def test_admin_unregister_model():
     """Test model unregistration from admin."""
     admin = Admin()
     
@@ -65,9 +61,8 @@ async def test_admin_unregister_model():
     assert len(admin.models) == 0
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_unregister_nonexistent_model():
+def test_admin_unregister_nonexistent_model():
     """Test that unregistering a non-existent model raises an error."""
     admin = Admin()
     
@@ -75,9 +70,8 @@ async def test_admin_unregister_nonexistent_model():
         admin.unregister_model("NonExistentModel")
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_get_model():
+def test_admin_get_model():
     """Test getting a registered model."""
     admin = Admin()
     
@@ -91,9 +85,8 @@ async def test_admin_get_model():
     assert retrieved_model == mock_model
 
 
-@pytest.mark.asyncio
 @pytest.mark.unit
-async def test_admin_get_nonexistent_model():
+def test_admin_get_nonexistent_model():
     """Test that getting a non-existent model returns None."""
     admin = Admin()
     

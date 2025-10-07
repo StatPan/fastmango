@@ -17,6 +17,16 @@ class TestUser(Model, table=True):
     is_active: bool = Field(default=True)
 
 
+class TestPost(Model, table=True):
+    """Test post model for integration testing."""
+    __tablename__ = "test_posts"
+    
+    id: int | None = Field(default=None, primary_key=True)
+    title: str
+    content: str
+    author_id: int | None = Field(default=None, foreign_key="test_users.id")
+
+
 @pytest.mark.asyncio
 @pytest.mark.integration
 async def test_admin_integration_with_app(set_db_context):
@@ -123,15 +133,6 @@ async def test_admin_crud_operations(set_db_context):
 @pytest.mark.integration
 async def test_admin_with_multiple_models(set_db_context):
     """Test admin with multiple registered models."""
-    class TestPost(Model, table=True):
-        """Test post model for integration testing."""
-        __tablename__ = "test_posts"
-        
-        id: int | None = Field(default=None, primary_key=True)
-        title: str
-        content: str
-        author_id: int | None = Field(default=None, foreign_key="test_users.id")
-    
     # Create app and admin
     app = MangoApp()
     admin = Admin()

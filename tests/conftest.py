@@ -47,7 +47,7 @@ async def db_session(async_engine) -> AsyncGenerator[AsyncSession, None]:
 
 
 @pytest.fixture(scope="function")
-async def set_db_context(db_session):
+async def set_db_context(db_session: AsyncSession) -> AsyncGenerator[None, None]:
     """Set the database session in the context variable."""
     token = db_session_context.set(db_session)
     try:

@@ -1,6 +1,5 @@
 import pytest
 from sqlmodel import Field, SQLModel
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastmango.models import Model, Manager
 

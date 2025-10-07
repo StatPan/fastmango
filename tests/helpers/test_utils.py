@@ -1,7 +1,5 @@
-import asyncio
 from typing import Any, Dict, List, Type
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlmodel import SQLModel
 
 from fastmango.models import Model
 
@@ -35,36 +33,28 @@ async def create_test_models(
 
 
 async def clear_model_data(model_class: Type[Model]) -> None:
-    """Clear all data for a specific model."""
-    all_instances = await model_class.objects.all()
-    for instance in all_instances:
-        await instance.delete()
+    """Clear all data for a specific model using bulk delete."""
+    # Use bulk delete for better performance instead of N+1 queries
+    await model_class.objects.delete_all()
 
 
 async def setup_test_data(
-    session: AsyncSession,
     models_data: Dict[Type[Model], List[Dict[str, Any]]]
 ) -> Dict[Type[Model], List[Model]]:
-    """Set up test data for multiple models."""
-    from fastmango.models import db_session_context
+    """Set up test data for multiple models.
     
-    # Set the database session context
-    token = db_session_context.set(session)
+    Note: This function should be used within a set_db_context fixture.
+    """
+    created_models = {}
     
-    try:
-        created_models = {}
-        
-        for model_class, data_list in models_data.items():
-            created_instances = []
-            for data in data_list:
-                instance = await create_test_model(model_class, **data)
-                created_instances.append(instance)
-            created_models[model_class] = created_instances
-        
-        return created_models
+    for model_class, data_list in models_data.items():
+        created_instances = []
+        for data in data_list:
+            instance = await create_test_model(model_class, **data)
+            created_instances.append(instance)
+        created_models[model_class] = created_instances
     
-    finally:
-        db_session_context.reset(token)
+    return created_models
 
 
 def assert_model_attributes(model: Model, expected_attrs: Dict[str, Any]) -> None:
@@ -80,22 +70,8 @@ def assert_models_list(models: List[Model], expected_count: int) -> None:
     assert len(models) == expected_count, f"Expected {expected_count} models, got {len(models)}"
 
 
-class AsyncTestContext:
-    """Context manager for async test operations."""
-    
-    def __init__(self, session: AsyncSession):
-        self.session = session
-        self.token = None
-    
-    async def __aenter__(self):
-        from fastmango.models import db_session_context
-        self.token = db_session_context.set(self.session)
-        return self
-    
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        from fastmango.models import db_session_context
-        if self.token:
-            db_session_context.reset(self.token)
+# AsyncTestContext has been removed in favor of using set_db_context fixture
+# for consistent database context management across tests
 
 
 def create_mock_request(user_id: int = None, is_authenticated: bool = False) -> Any:
