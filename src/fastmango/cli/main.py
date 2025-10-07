@@ -3,6 +3,7 @@ from .new import app as new_app
 from .run import app as run_app
 from .db import app as db_app
 from .admin import app as admin_app
+from .mcp import app as mcp_app
 
 app = typer.Typer(
     name="fastmango",
@@ -15,6 +16,7 @@ app.add_typer(new_app, name="new")
 app.add_typer(run_app, name="run")
 app.add_typer(db_app, name="db")
 app.add_typer(admin_app, name="admin")
+app.add_typer(mcp_app, name="mcp")
 
 @app.command()
 def version():

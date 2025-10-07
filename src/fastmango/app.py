@@ -5,12 +5,10 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 from .models import db_session_context
+from .mcp import MCPConfig, MCPServer
 
-# These are placeholders for future implementation.
+# This is a placeholder for future implementation.
 class LLMConfig:
-    pass
-
-class MCPConfig:
     pass
 
 class MangoApp:
@@ -94,8 +92,8 @@ class MangoApp:
             # Logic to initialize the LLM engine will go here.
             pass
         if self.mcp_config:
-            # Logic to initialize the MCP server will go here.
-            pass
+            # Initialize the MCP server
+            self.mcp_server = MCPServer(self.fastapi_app, self.mcp_config)
 
     def get(self, path: str, **kwargs):
         """Registers a GET route."""
@@ -130,12 +128,9 @@ class MangoApp:
     def mcp_tool(self, name: Optional[str] = None, **kwargs):
         """
         Decorator to register a function as an MCP tool.
-        (Placeholder for future implementation)
         """
-        def decorator(func):
-            # The logic for registering the MCP tool will be implemented here.
-            return func
-        return decorator
+        from .mcp.decorators import mcp_tool as _mcp_tool
+        return _mcp_tool(name, **kwargs)
 
     def include_router(self, router, **kwargs):
         """Includes a FastAPI router in the application."""
