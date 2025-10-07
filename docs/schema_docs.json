@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "generated_at": "2025-10-07T22:03:42.005429",
+    "version": "1.0.0",
+    "fastmango_version": "0.1.0"
+  },
+  "models": [
+    {
+      "name": "User",
+      "table_name": "user",
+      "description": "No description available",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true,
+          "unique": false,
+          "default": null,
+          "foreign_key": null,
+          "description": null
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR",
+          "nullable": false,
+          "primary_key": false,
+          "unique": true,
+          "default": null,
+          "foreign_key": null,
+          "description": null
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR",
+          "nullable": false,
+          "primary_key": false,
+          "unique": true,
+          "default": null,
+          "foreign_key": null,
+          "description": null
+        },
+        {
+          "name": "password_hash",
+          "type": "VARCHAR",
+          "nullable": true,
+          "primary_key": false,
+          "unique": false,
+          "default": null,
+          "foreign_key": null,
+          "description": null
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false,
+          "unique": false,
+          "default": "ScalarElementColumnDefault(True)",
+          "foreign_key": null,
+          "description": null
+        }
+      ],
+      "column_count": 5
+    }
+  ],
+  "relationships": [],
+  "indexes": [],
+  "constraints": [],
+  "database_info": {
+    "version": "SQLite 3.49.1",
+    "table_count": 2
+  }
+}
