@@ -25,16 +25,7 @@ dependencies = [
     "uvicorn[standard]>=0.35.0",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "black>=24.8.0",
-    "ruff>=0.7.2",
-    "mypy>=1.11.1",
-    "mkdocs>=1.6.0",
-    "mkdocs-material>=9.5.3",
-    "mkdocstrings[python]>=0.24.0",
-    "pre-commit>=3.0.0",
-]
+# dev dependencies are defined in [dependency-groups] section below
 
 [project.scripts]
 fastmango = "fastmango:main"
@@ -106,7 +97,17 @@ exclude = '''
 
 [dependency-groups]
 dev = [
+    "black>=24.8.0",
+    "ruff>=0.7.2",
+    "mypy>=1.11.1",
+    "mkdocs>=1.6.0",
     "mkdocs-material>=9.6.18",
     "mkdocstrings[python]>=0.30.0",
     "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
 ]
+
+
