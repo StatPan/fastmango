@@ -136,6 +136,13 @@ class MangoApp:
         """Includes a FastAPI router in the application."""
         self.fastapi_app.include_router(router, **kwargs)
 
+    def mount_admin(self, path: str, admin_instance):
+        """Mounts an admin instance at the specified path."""
+        if self.admin:
+            self.fastapi_app.mount(path, admin_instance.asgi_app)
+        else:
+            raise RuntimeError("Admin interface is not enabled or not properly initialized")
+
     @property
     def asgi(self):
         """Provides access to the underlying ASGI application."""
