@@ -7,7 +7,7 @@ from fastmango.models import Model
 from fastmango.admin import Admin
 
 
-class TestUser(Model, table=True):
+class UserTestModel(Model, table=True):
     """Test user model for integration testing."""
     __tablename__ = "test_users"
     
@@ -17,7 +17,7 @@ class TestUser(Model, table=True):
     is_active: bool = Field(default=True)
 
 
-class TestPost(Model, table=True):
+class PostTestModel(Model, table=True):
     """Test post model for integration testing."""
     __tablename__ = "test_posts"
     
@@ -37,7 +37,7 @@ async def test_admin_integration_with_app(set_db_context):
     # The admin should be automatically initialized
     # Register model with the internal admin
     if app.admin:
-        app.admin.register_model(TestUser)
+        app.admin.register_model(UserTestModel)
     
     # Mount admin to app
     app.mount_admin("/admin", app.admin)
@@ -51,12 +51,12 @@ async def test_admin_integration_with_app(set_db_context):
     assert "FastAPI Admin" in response.text
     
     # Test model list page
-    response = client.get("/admin/testuser/")
+    response = client.get("/admin/usertestmodel/")
     assert response.status_code == 200
-    assert "TestUser" in response.text
+    assert "UserTestModel" in response.text
     
     # Test create form page
-    response = client.get("/admin/testuser/create")
+    response = client.get("/admin/usertestmodel/create")
     assert response.status_code == 200
     assert "Create" in response.text
 
@@ -71,7 +71,7 @@ async def test_admin_crud_operations(set_db_context):
     # The admin should be automatically initialized
     # Register model with the internal admin
     if app.admin:
-        app.admin.register_model(TestUser)
+        app.admin.register_model(UserTestModel)
     
     # Mount admin to app
     app.mount_admin("/admin", app.admin)
@@ -86,23 +86,23 @@ async def test_admin_crud_operations(set_db_context):
         "is_active": True
     }
     
-    response = client.post("/admin/testuser/create", data=create_data)
+    response = client.post("/admin/usertestmodel/create", data=create_data)
     assert response.status_code == 302  # Redirect after successful creation
     
     # Verify user was created
-    users = await TestUser.objects.all()
+    users = await UserTestModel.objects.all()
     assert len(users) == 1
     assert users[0].username == "testuser"
     assert users[0].email == "test@example.com"
     
     # Test user list page shows created user
-    response = client.get("/admin/testuser/")
+    response = client.get("/admin/usertestmodel/")
     assert response.status_code == 200
     assert "testuser" in response.text
     
     # Test edit page
     user = users[0]
-    response = client.get(f"/admin/testuser/{user.id}/edit")
+    response = client.get(f"/admin/usertestmodel/{user.id}/edit")
     assert response.status_code == 200
     assert "testuser" in response.text
     
@@ -113,21 +113,21 @@ async def test_admin_crud_operations(set_db_context):
         "is_active": False
     }
     
-    response = client.post(f"/admin/testuser/{user.id}/edit", data=update_data)
+    response = client.post(f"/admin/usertestmodel/{user.id}/edit", data=update_data)
     assert response.status_code == 302  # Redirect after successful update
     
     # Verify user was updated
-    updated_user = await TestUser.objects.get(id=user.id)
+    updated_user = await UserTestModel.objects.get(id=user.id)
     assert updated_user.username == "updateduser"
     assert updated_user.email == "updated@example.com"
     assert updated_user.is_active is False
     
     # Test delete user
-    response = client.post(f"/admin/testuser/{user.id}/delete")
+    response = client.post(f"/admin/usertestmodel/{user.id}/delete")
     assert response.status_code == 302  # Redirect after successful deletion
     
     # Verify user was deleted
-    deleted_user = await TestUser.objects.get(id=user.id)
+    deleted_user = await UserTestModel.objects.get(id=user.id)
     assert deleted_user is None
 
 
@@ -141,8 +141,8 @@ async def test_admin_with_multiple_models(set_db_context):
     # The admin should be automatically initialized
     # Register models with the internal admin
     if app.admin:
-        app.admin.register_model(TestUser)
-        app.admin.register_model(TestPost)
+        app.admin.register_model(UserTestModel)
+        app.admin.register_model(PostTestModel)
     
     # Mount admin to app
     app.mount_admin("/admin", app.admin)
@@ -153,12 +153,12 @@ async def test_admin_with_multiple_models(set_db_context):
     # Test admin home page shows both models
     response = client.get("/admin/")
     assert response.status_code == 200
-    assert "TestUser" in response.text
-    assert "TestPost" in response.text
+    assert "UserTestModel" in response.text
+    assert "PostTestModel" in response.text
     
     # Test both model list pages work
-    response = client.get("/admin/testuser/")
+    response = client.get("/admin/usertestmodel/")
     assert response.status_code == 200
     
-    response = client.get("/admin/testpost/")
+    response = client.get("/admin/posttestmodel/")
     assert response.status_code == 200

@@ -138,7 +138,7 @@ class MangoApp:
 
     def mount_admin(self, path: str, admin_instance):
         """Mounts an admin instance at the specified path."""
-        if self.admin:
+        if admin_instance:
             self.fastapi_app.mount(path, admin_instance.asgi_app)
         else:
             raise RuntimeError("Admin interface is not enabled or not properly initialized")
