@@ -135,3 +135,6 @@ uv.lock
 # Analysis directories - external repos
 docs/analysis/fastmcp-2.0/
 docs/analysis/anthropic-mcp-sdk/
+
+# Ignore debug scripts
+debug_*.py
