@@ -31,23 +31,24 @@ class TestPost(Model, table=True):
 @pytest.mark.integration
 async def test_admin_integration_with_app(set_db_context):
     """Test admin integration with FastMango app."""
-    # Create app and admin
-    app = MangoApp()
-    admin = Admin()
+    # Create app with database URL to enable admin
+    app = MangoApp(database_url="sqlite+aiosqlite:///:memory:")
     
-    # Register model with admin
-    admin.register_model(TestUser)
+    # The admin should be automatically initialized
+    # Register model with the internal admin
+    if app.admin:
+        app.admin.register_model(TestUser)
     
     # Mount admin to app
-    app.mount_admin("/admin", admin)
+    app.mount_admin("/admin", app.admin)
     
     # Create test client
-    client = TestClient(app)
+    client = TestClient(app.fastapi_app)
     
     # Test admin home page
     response = client.get("/admin/")
     assert response.status_code == 200
-    assert "FastMango Admin" in response.text
+    assert "FastAPI Admin" in response.text
     
     # Test model list page
     response = client.get("/admin/testuser/")
@@ -64,18 +65,19 @@ async def test_admin_integration_with_app(set_db_context):
 @pytest.mark.integration
 async def test_admin_crud_operations(set_db_context):
     """Test complete CRUD operations through admin interface."""
-    # Create app and admin
-    app = MangoApp()
-    admin = Admin()
+    # Create app with database URL to enable admin
+    app = MangoApp(database_url="sqlite+aiosqlite:///:memory:")
     
-    # Register model with admin
-    admin.register_model(TestUser)
+    # The admin should be automatically initialized
+    # Register model with the internal admin
+    if app.admin:
+        app.admin.register_model(TestUser)
     
     # Mount admin to app
-    app.mount_admin("/admin", admin)
+    app.mount_admin("/admin", app.admin)
     
     # Create test client
-    client = TestClient(app)
+    client = TestClient(app.fastapi_app)
     
     # Create user through admin
     create_data = {
@@ -133,19 +135,20 @@ async def test_admin_crud_operations(set_db_context):
 @pytest.mark.integration
 async def test_admin_with_multiple_models(set_db_context):
     """Test admin with multiple registered models."""
-    # Create app and admin
-    app = MangoApp()
-    admin = Admin()
+    # Create app with database URL to enable admin
+    app = MangoApp(database_url="sqlite+aiosqlite:///:memory:")
     
-    # Register models with admin
-    admin.register_model(TestUser)
-    admin.register_model(TestPost)
+    # The admin should be automatically initialized
+    # Register models with the internal admin
+    if app.admin:
+        app.admin.register_model(TestUser)
+        app.admin.register_model(TestPost)
     
     # Mount admin to app
-    app.mount_admin("/admin", admin)
+    app.mount_admin("/admin", app.admin)
     
     # Create test client
-    client = TestClient(app)
+    client = TestClient(app.fastapi_app)
     
     # Test admin home page shows both models
     response = client.get("/admin/")

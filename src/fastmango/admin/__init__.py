@@ -1,5 +1,6 @@
 from typing import Dict, Type
 from sqlmodel import SQLModel
+from .base import FastMangoAdmin
 
 
 class Admin:

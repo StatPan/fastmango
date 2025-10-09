@@ -42,13 +42,17 @@ class FastMangoAdmin:
         self._custom_admins: Dict[Type[Model], Type[ModelView]] = {}
         
         # Initialize SQLAdmin
+        app_title = getattr(app.fastapi_app, 'title', 'FastMango')
         self.admin_app = Admin(
             app.fastapi_app,
             engine=app.db_engine,
             base_url=admin_url,
-            title=f"{app.fastapi_app.title} Admin",
+            title=f"{app_title} Admin",
             logo_url="/static/admin/logo.png"
         )
+        
+        # Store reference to the admin app for mounting
+        self._asgi_app = self.admin_app
         
         # Auto-register all FastMango models
         self.auto_register_models()
@@ -133,26 +137,28 @@ class FastMangoAdmin:
         if admin_class:
             # Create instance of custom admin class
             admin_view = admin_class(model_class)
+            admin_view_class = admin_class
         else:
-            admin_view = self._create_default_admin_view(model_class)
+            admin_view_class = self._create_default_admin_view_class(model_class)
+            admin_view = admin_view_class()
         
         # Register with SQLAdmin
-        self.admin_app.add_view(admin_view)
+        self.admin_app.add_view(admin_view_class)
         
         # Track registration
         self._registered_models[model_class] = admin_view
         
         return admin_view
     
-    def _create_default_admin_view(self, model_class: Type[Model]) -> ModelView:
+    def _create_default_admin_view_class(self, model_class: Type[Model]) -> Type[ModelView]:
         """
-        Create a default admin view for a model.
+        Create a default admin view class for a model.
         
         Args:
             model_class: The model class to create view for
             
         Returns:
-            ModelView instance
+            ModelView class
         """
         # Create a dynamic ModelView class
         class_name = f"{model_class.__name__}Admin"
@@ -162,8 +168,8 @@ class FastMangoAdmin:
         search_fields = self._get_search_fields(model_class)
         
         # Get primary key information dynamically
-        pk_columns = [col.name for col in model_class.__table__.primary_key.columns]
-        identity = pk_columns[0] if pk_columns else "id"
+        pk_columns = list(model_class.__table__.primary_key.columns)
+        identity = pk_columns[0].name if pk_columns else "id"
         
         # Create the admin view class
         admin_view_class = type(
@@ -178,10 +184,23 @@ class FastMangoAdmin:
                 "model": model_class,  # Set model as class attribute
                 # Add required SQLAdmin attributes
                 "identity": identity,  # Primary key field
-                "pk_columns": pk_columns,  # Primary key columns
+                "pk_columns": pk_columns,  # Primary key columns (as column objects)
             }
         )
         
+        return admin_view_class
+    
+    def _create_default_admin_view(self, model_class: Type[Model]) -> ModelView:
+        """
+        Create a default admin view instance for a model.
+        
+        Args:
+            model_class: The model class to create view for
+            
+        Returns:
+            ModelView instance
+        """
+        admin_view_class = self._create_default_admin_view_class(model_class)
         return admin_view_class()
     
     def _get_model_columns(self, model_class: Type[Model]) -> List[str]:
@@ -203,7 +222,8 @@ class FastMangoAdmin:
                 continue
             
             # Skip foreign key fields for simplicity in default view
-            if field_info.foreign_key:
+            # Check if the field has a foreign_key attribute
+            if hasattr(field_info, 'foreign_key') and field_info.foreign_key:
                 continue
             
             columns.append(field_name)
@@ -292,3 +312,13 @@ class FastMangoAdmin:
         # SQLAdmin automatically sets up routes during initialization
         # This method is for future extensibility
         pass
+    
+    @property
+    def asgi_app(self):
+        """
+        Get the ASGI application for mounting.
+        
+        Returns:
+            The ASGI application that can be mounted to FastAPI
+        """
+        return self._asgi_app
