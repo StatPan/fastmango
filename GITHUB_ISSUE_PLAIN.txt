@@ -1,0 +1,111 @@
+Fix Pytest Failures and Improve Test Coverage
+
+CURRENT STATUS
+
+PROGRESS MADE
+- Test Pass Rate: 21/25 tests passing (84% pass rate)
+- Coverage: 28.07% (exceeds 20% requirement)
+- Admin Import Fixed: FastMangoAdmin now properly exported
+- Mount Method Fixed: mount_admin method now uses passed admin_instance parameter
+- Test Naming Fixed: Resolved pytest collection warnings by renaming test models
+- CLI Tests Improved: 2/3 CLI tests now passing
+
+REMAINING FAILURES (4 tests)
+
+1. Admin Integration Tests (3 failures)
+Files: tests/integration/test_admin_integration.py
+- test_admin_integration_with_app - 404 on /admin/
+- test_admin_crud_operations - 404 on admin endpoints  
+- test_admin_with_multiple_models - 404 on admin endpoints
+
+Root Cause: Admin routes not properly accessible in test environment despite working in manual testing.
+
+2. CLI Template Test (1 failure)
+File: tests/unit/test_cli.py
+- test_cli_new_project_with_template - Exit code 2, CLI structure issue
+
+DEEP DIVE ANALYSIS
+
+Admin Integration Issue
+Strange Behavior: Manual testing shows admin works perfectly:
+Manual test - WORKS
+uv run python -c "..." # Returns 200 for /admin/
+
+Pytest test - FAILS  
+client.get('/admin/') # Returns 404
+
+Possible Causes:
+1. Database Initialization Timing: Test database vs manual database setup differences
+2. SQLAdmin Routing: SQLAdmin might not properly register routes in TestClient context
+3. Async Context: TestClient might not handle async admin setup correctly
+4. Mount Timing: Admin mounting might happen at wrong time in test lifecycle
+
+CLI Template Issue
+Problem: CLI help shows NAME COMMAND [ARGS]... structure, but actual command expects NAME --template VALUE. This suggests a Typer configuration issue.
+
+NEXT STEPS (PRIORITY ORDER)
+
+HIGH PRIORITY: Admin Integration Fix
+1. Debug SQLAdmin in Test Context
+   Add debugging to test to see what routes are actually registered
+   for route in app.fastapi_app.routes:
+       print(f"Route: {route.path} - {route.methods}")
+
+2. Check Database Setup Differences
+   - Compare manual test database setup vs test fixture setup
+   - Verify SQLAdmin gets proper database connection in tests
+
+3. Test Alternative Mounting Approaches
+   - Try mounting admin before creating TestClient
+   - Test with different mount paths
+   - Verify admin.asgi_app is properly configured
+
+4. SQLAdmin Version Compatibility
+   - Check if SQLAdmin version has known issues with TestClient
+   - Consider mocking SQLAdmin for integration tests
+
+MEDIUM PRIORITY: CLI Template Fix
+1. Fix CLI Command Structure
+   - Review Typer configuration in src/fastmango/cli/new.py
+   - Ensure template option is properly defined
+   - Test CLI command structure manually
+
+2. Improve CLI Test Mocking
+   - Current mocking approach works for basic case
+   - Template test needs different mocking strategy
+
+LOW PRIORITY: Coverage Improvement
+- Coverage is already at 28%, exceeding 20% requirement
+- Focus on functionality first, coverage later
+
+TECHNICAL DETAILS
+
+FILES MODIFIED
+- src/fastmango/admin/__init__.py - Added FastMangoAdmin export
+- src/fastmango/app.py - Fixed mount_admin method
+- tests/integration/test_admin_integration.py - Renamed test models, updated URLs
+- tests/unit/test_cli.py - Improved mocking, fixed assertions
+
+TEST ENVIRONMENT
+- Python 3.12.11
+- pytest 8.4.2
+- SQLAdmin for admin interface
+- Typer for CLI
+- SQLite in-memory database for tests
+
+NOTES FOR NEXT SESSION
+1. Start with Admin Integration: This is the most critical issue
+2. Use Debugging Approach: Add extensive logging to understand what's different between manual and test environments
+3. Consider Test Isolation: The admin tests might be interfering with each other
+4. Document Findings: Keep detailed notes of what works and what doesn't
+
+RELATED FILES
+- src/fastmango/admin/base.py - FastMangoAdmin implementation
+- src/fastmango/app.py - Main application class
+- tests/integration/test_admin_integration.py - Failing admin tests
+- tests/conftest.py - Test fixtures and setup
+- src/fastmango/cli/new.py - CLI new command implementation
+
+Labels: bug, testing, high-priority, admin-interface, cli
+Assignee: @statpan
+Milestone: v0.1.0-stable
