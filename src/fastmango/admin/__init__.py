@@ -1,5 +1,6 @@
 from typing import Dict, Type
 from sqlmodel import SQLModel
+from .base import FastMangoAdmin
 
 
 class Admin:
@@ -27,3 +28,7 @@ class Admin:
     def get_model(self, model_name: str) -> Type[SQLModel] | None:
         """Get a registered model by name."""
         return self.models.get(model_name)
+
+
+# Export FastMangoAdmin for import by app.py
+__all__ = ["Admin", "FastMangoAdmin"]
