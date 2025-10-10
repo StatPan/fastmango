@@ -3,14 +3,11 @@ import pathlib
 import jinja2
 import os
 
-app = typer.Typer(name="new", help="Create a new FastMango project.")
-
 TEMPLATE_DIR = pathlib.Path(__file__).parent.parent / "template" / "basic"
 
-@app.callback(invoke_without_command=True)
 def new(
     name: str = typer.Argument(..., help="The name of the project to create."),
-    template: str = typer.Option("basic", "--template", help="The template to use for the project."),
+    template: str = typer.Option("basic", "--template", "-t", help="The template to use for the project."),
 ):
     """
     Creates a new FastMango project directory structure from a template.

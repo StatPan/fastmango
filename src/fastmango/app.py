@@ -75,7 +75,7 @@ class MangoApp:
         if self.enable_admin and self.db_engine:
             try:
                 from .admin import FastMangoAdmin
-                self.admin = FastMangoAdmin(self, admin_url=self.admin_url)
+                self.admin = FastMangoAdmin()
             except ImportError:
                 print("Warning: SQLAdmin is not installed. Admin interface disabled.")
                 self.admin = None

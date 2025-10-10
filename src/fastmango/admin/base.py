@@ -24,23 +24,32 @@ class FastMangoAdmin:
     
     Usage:
         app = MangoApp()
-        admin = FastMangoAdmin(app)
+        admin = FastMangoAdmin()
+        admin.init_app(app)
         # Models are automatically registered!
     """
     
-    def __init__(self, app: MangoApp, admin_url: str = "/admin"):
+    def __init__(self):
         """
         Initialize FastMangoAdmin.
-        
+        """
+        self.app = None
+        self.admin_url = None
+        self._registered_models: Dict[Type[Model], ModelView] = {}
+        self._custom_admins: Dict[Type[Model], Type[ModelView]] = {}
+        self._models_to_register: List[Type[Model]] = []
+
+    def init_app(self, app: MangoApp, admin_url: str = "/admin"):
+        """
+        Initialize the admin interface for the given app.
+
         Args:
             app: The MangoApp instance
             admin_url: URL path for admin interface (default: "/admin")
         """
         self.app = app
         self.admin_url = admin_url
-        self._registered_models: Dict[Type[Model], ModelView] = {}
-        self._custom_admins: Dict[Type[Model], Type[ModelView]] = {}
-        
+
         # Initialize SQLAdmin
         app_title = getattr(app.fastapi_app, 'title', 'FastMango')
         self.admin_app = Admin(
@@ -56,7 +65,11 @@ class FastMangoAdmin:
         
         # Auto-register all FastMango models
         self.auto_register_models()
-    
+
+        # Register any models that were added before init_app was called
+        for model_class in self._models_to_register:
+            self.register_model(model_class)
+
     def auto_register_models(self) -> None:
         """
         Automatically register all FastMango models found in the application.
@@ -119,7 +132,7 @@ class FastMangoAdmin:
         
         return True
     
-    def register_model(self, model_class: Type[Model], admin_class: Optional[Type[ModelView]] = None) -> ModelView:
+    def register_model(self, model_class: Type[Model], admin_class: Optional[Type[ModelView]] = None) -> Optional[ModelView]:
         """
         Register a model with the admin interface.
         
@@ -130,14 +143,18 @@ class FastMangoAdmin:
         Returns:
             The created ModelView instance
         """
+        if not self.app:
+            self._models_to_register.append(model_class)
+            return None
+
         if model_class in self._registered_models:
             return self._registered_models[model_class]
         
         # Use custom admin class if provided, otherwise create default
         if admin_class:
             # Create instance of custom admin class
-            admin_view = admin_class(model_class)
             admin_view_class = admin_class
+            admin_view = admin_view_class()
         else:
             admin_view_class = self._create_default_admin_view_class(model_class)
             admin_view = admin_view_class()
@@ -169,9 +186,11 @@ class FastMangoAdmin:
         
         # Get primary key information dynamically
         pk_columns = list(model_class.__table__.primary_key.columns)
-        identity = pk_columns[0].name if pk_columns else "id"
+        pk_column_names = [col.name for col in pk_columns]
+        # Use model name for identity, not primary key field name
+        identity = model_class.__tablename__
         
-        # Create the admin view class
+        # Create the admin view class with proper SQLAdmin configuration
         admin_view_class = type(
             class_name,
             (ModelView,),
@@ -181,10 +200,15 @@ class FastMangoAdmin:
                 "form_columns": column_list,
                 "name_plural": model_class.__name__ + "s",
                 "name": model_class.__name__,
-                "model": model_class,  # Set model as class attribute
+                # SQLAdmin requires the model to be set as a class attribute
+                "model": model_class,
                 # Add required SQLAdmin attributes
-                "identity": identity,  # Primary key field
+                "identity": identity,  # Primary key field name
                 "pk_columns": pk_columns,  # Primary key columns (as column objects)
+                "pk_column_names": pk_column_names,  # Primary key column names
+                # Additional required attributes for SQLAdmin
+                "column_details_list": column_list,
+                "column_export_list": column_list,
             }
         )
         
@@ -221,10 +245,8 @@ class FastMangoAdmin:
             if 'password' in field_name.lower():
                 continue
             
-            # Skip foreign key fields for simplicity in default view
-            # Check if the field has a foreign_key attribute
-            if hasattr(field_info, 'foreign_key') and field_info.foreign_key:
-                continue
+            # Include foreign key fields for simplicity in default view
+            # This ensures all fields are included in the form
             
             columns.append(field_name)
         
